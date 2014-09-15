@@ -221,21 +221,37 @@ Game.prototype.reveal = function(cell){
 	var revealed = []
 	var self = this;
 	var recurse = function(cell){
+			revealed.push(cell);
+			var ele = self.find(cell);
+		if(!ele.flagged){
+			ele.reveal = true;
 
-		revealed.push(cell);
-		var ele = self.find(cell);
-		ele.reveal = true;
-
-		if (ele.sensor == 0 && !ele.mine){
-			_.each(ele.nextTo, function(cell){
-				if(!_.contains(revealed, cell))
-					{
-						recurse(cell);
-					}
-			})
+			if (ele.sensor == 0 && !ele.mine){
+				_.each(ele.nextTo, function(cell){
+					if(!_.contains(revealed, cell))
+						{
+							recurse(cell);
+						}
+				})
+			}
 		}
 	};
 	recurse(cell);
+}
+
+Game.prototype.flag = function(cell){
+	var self = this;
+	var ele = self.find(cell);
+	if(ele.reveal){
+	}
+	else if (ele.flagged){
+		ele.flagged = false;
+		ele.appearance = self.updateAppearance(ele.mine, ele.sensor);
+	}
+	else{
+		ele.flagged = true;
+		ele.appearance = 'F'
+	}
 }
 
 angular.module('myApp.view1', ['ngRoute'])
@@ -259,6 +275,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	};
 	$scope.rightClick = function(cell) {
 		console.log("right")
+		$scope.game.flag(cell.number);
 	};
 	$scope.myFunct = function(keyEvent, cell) {
 	  console.log(keyEvent);

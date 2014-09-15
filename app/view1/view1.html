@@ -7,7 +7,7 @@
 		ng-dblClick="doubleClick(cell)"
 		rightclick = "rightClick(cell)">
 
-			<div ng-show = "cell.reveal">{{cell.appearance}}</div>
+			<div ng-show = "cell.reveal || cell.flagged">{{cell.appearance}}</div>
 
 		</div>
 
