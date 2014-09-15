@@ -47,6 +47,7 @@ function Cell(number){
 	this.position = "middle";
 	this.mine = false;
 	this.revealed = false;
+	this.appearance = '';
 	this.flagged = false;
 	this.nextTo=[];
 }
@@ -144,6 +145,7 @@ Game.prototype.updateProps = function(array, size){
 		cell.position = assignPosition(cell.number, size);
 		cell.nextTo = self.updateNextTo(cell.position, cell.number, size);
 		cell.sensor = self.updateSensor(cell.nextTo, array);
+		cell.appearance = self.updateAppearance(cell.mine, cell.sensor);
 	})
 	return array;
 };
@@ -196,6 +198,17 @@ Game.prototype.updateSensor = function(nextTo, array){
 		return result
 	}, result)
 }
+Game.prototype.updateAppearance = function(isMine, sensor){
+	if(isMine){
+		return 'X'
+	}
+	else if (sensor == 0){
+		return '-'
+	}
+	else {
+		return sensor;
+	}
+}
 
 angular.module('myApp.view1', ['ngRoute'])
 
@@ -209,5 +222,10 @@ angular.module('myApp.view1', ['ngRoute'])
 .controller('View1Ctrl', ['$scope', function($scope) {
 	$scope.game = new Game(9);
 	$scope.board = $scope.game.board;
+	$scope.test = function(cell) {
+	    cell.reveal = true;
+	}
+}])
 
-}]);
+
+
