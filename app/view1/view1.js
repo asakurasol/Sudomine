@@ -251,9 +251,57 @@ angular.module('myApp.view1', ['ngRoute'])
 	$scope.game = new Game(9);
 	$scope.board = $scope.game.board;
 	$scope.test = function(cell) {
+		console.log("single")
 	    $scope.game.reveal(cell.number);
 	}
+	$scope.doubleClick = function(cell) {
+		console.log("double")
+	};
+
+	$scope.myFunct = function(keyEvent, cell) {
+	  console.log(keyEvent);
+	  if (keyEvent.which === 32)
+	    console.log(cell);
+	}
 }])
+
+.directive('sglclick', ['$parse', function($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+          var fn = $parse(attr['sglclick']);
+          var delay = 200, clicks = 0, timer = null;
+          element.on('click', function (event) {
+            clicks++;  //count clicks
+            if(clicks === 1) {
+              timer = setTimeout(function() {
+                scope.$apply(function () {
+                    fn(scope, { $event: event });
+                }); 
+                clicks = 0;             //after action performed, reset counter
+              }, delay);
+              } else {
+                clearTimeout(timer);    //prevent single-click action
+                clicks = 0;             //after action performed, reset counter
+              }
+          });
+        }
+    };
+}])
+/*
+.directive('ngSpace', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 32) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngSpace);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});*/
 
 
 
