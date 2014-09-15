@@ -63,15 +63,15 @@ function Game(size){
 		cells[i]= new Cell(i);
 	};
 
-	//update position of the cells in the game board
-	this.updatePosition(cells,size);
-
 	//randomly generate the mine locations
 	var mineLocations = this.generateMines(size*size, 10);
 
 	_.each(mineLocations, function(location){
 		cells[location].setMine();
 	})
+
+	//update position of the cells in the game board
+	this.updateProps(cells,size);
 
 	//split cells by columns for easy rendering later
 	var counter = 0;
@@ -107,7 +107,7 @@ Game.prototype.generateMines = function(boardsize, mines){
 	return result;
 }
 
-Game.prototype.updatePosition = function(array, size){
+Game.prototype.updateProps = function(array, size){
 	var self = this;
 	var assignPosition = function(i, size){
 		//corner cases
