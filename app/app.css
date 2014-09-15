@@ -1,5 +1,11 @@
 /* app css stylesheet */
 
+body{
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -31,6 +37,7 @@
 
 #game{
   margin: auto;
+  width: 40%;
 }
 .column{
    float: left;
