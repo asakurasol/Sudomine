@@ -87,6 +87,7 @@ function Game(size){
 	};
 
 	//output the board
+	this.size = size;
 	this.board = board;
 } 
 
@@ -210,6 +211,16 @@ Game.prototype.updateAppearance = function(isMine, sensor){
 	}
 }
 
+Game.prototype.find = function(index){
+	var array = Math.floor(index / this.size);
+	var element = index%this.size;
+	return this.board[array][element];
+}
+
+Game.prototype.reveal = function(cell){
+	this.find(cell).reveal = true;
+}
+
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -223,7 +234,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	$scope.game = new Game(9);
 	$scope.board = $scope.game.board;
 	$scope.test = function(cell) {
-	    cell.reveal = true;
+	    $scope.game.reveal(cell.number);
 	}
 }])
 
