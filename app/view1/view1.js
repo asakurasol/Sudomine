@@ -142,7 +142,8 @@ Game.prototype.updateProps = function(array, size){
 
 	_.each(array, function(cell){
 		cell.position = assignPosition(cell.number, size);
-		cell.nextTo = self.updateNextTo(cell.position, cell.number, size)
+		cell.nextTo = self.updateNextTo(cell.position, cell.number, size);
+		cell.sensor = self.updateSensor(cell.nextTo, array);
 	})
 	return array;
 };
@@ -186,8 +187,14 @@ Game.prototype.updateNextTo = function(type, index, size){
 		return [top, bot, left, right, top_right, top_left, bot_left, bot_right]
 	}
 }
-Game.prototype.updateSensor = function(array){
-
+Game.prototype.updateSensor = function(nextTo, array){
+	var result = 0;
+	return _.reduce(nextTo, function(result, index){
+		if(array[index].mine){
+			return ++result;
+		}
+		return result
+	}, result)
 }
 
 angular.module('myApp.view1', ['ngRoute'])
