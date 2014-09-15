@@ -43,6 +43,8 @@ if (!Array.prototype.fill) {
 
 function Cell(number){
 	this.number = number;
+	this.sensor = 0;
+	this.position = "middle";
 	this.mine = false;
 	this.revealed = false;
 	this.flagged = false;
@@ -59,6 +61,10 @@ function Game(size){
 	for(var i = 0; i < cells.length; i++){
 		cells[i]= new Cell(i);
 	};
+
+	//update position of the cells in the game board
+	this.updatePosition(cells,size);
+
 	//randomly generate the mine locations
 	var mineLocations = this.generateMines(size*size, 10);
 
@@ -98,6 +104,48 @@ Game.prototype.generateMines = function(boardsize, mines){
 		result.push(getRandom(result));
 	}
 	return result;
+}
+
+Game.prototype.updatePosition = function(array, size){
+	var assignPosition = function(i, size){
+		//corner cases
+		if(i == 0){
+			return "top-left"
+		}
+		else if (i == array.length-1){
+			return "bot-right"
+		}
+		else if(i == size-1){
+			return "bot-left"
+		}
+		else if(i == array.length-size){
+			return "top-right"
+		}
+		else if(i<size){
+			return "left"
+		}
+		else if(i>array.length-size){
+			return "right"
+		}
+		else if(i%size ==0){
+			return "top"
+		}
+		else if((i+1)%size ==0){
+			return "bot"
+		}
+		else{
+			return "middle"
+		}
+	}
+
+	_.each(array, function(cell){
+		cell.position = assignPosition(cell.number, size);
+	})
+	return array;
+};
+
+Game.prototype.updateSensor = function(array){
+
 }
 
 angular.module('myApp.view1', ['ngRoute'])
