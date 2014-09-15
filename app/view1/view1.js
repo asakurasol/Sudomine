@@ -218,7 +218,24 @@ Game.prototype.find = function(index){
 }
 
 Game.prototype.reveal = function(cell){
-	this.find(cell).reveal = true;
+	var revealed = []
+	var self = this;
+	var recurse = function(cell){
+
+		revealed.push(cell);
+		var ele = self.find(cell);
+		ele.reveal = true;
+
+		if (ele.sensor == 0){
+			_.each(ele.nextTo, function(cell){
+				if(!_.contains(revealed, cell))
+					{
+						recurse(cell);
+					}
+			})
+		}
+	};
+	recurse(cell);
 }
 
 angular.module('myApp.view1', ['ngRoute'])
