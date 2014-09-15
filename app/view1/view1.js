@@ -226,7 +226,7 @@ Game.prototype.reveal = function(cell){
 		var ele = self.find(cell);
 		ele.reveal = true;
 
-		if (ele.sensor == 0){
+		if (ele.sensor == 0 && !ele.mine){
 			_.each(ele.nextTo, function(cell){
 				if(!_.contains(revealed, cell))
 					{
