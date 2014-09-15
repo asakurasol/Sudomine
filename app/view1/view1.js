@@ -257,7 +257,9 @@ angular.module('myApp.view1', ['ngRoute'])
 	$scope.doubleClick = function(cell) {
 		console.log("double")
 	};
-
+	$scope.rightClick = function(cell) {
+		console.log("right")
+	};
 	$scope.myFunct = function(keyEvent, cell) {
 	  console.log(keyEvent);
 	  if (keyEvent.which === 32)
@@ -288,6 +290,18 @@ angular.module('myApp.view1', ['ngRoute'])
         }
     };
 }])
+
+.directive('rightclick', function($parse) {
+    return function(scope, element, attrs) {
+        var fn = $parse(attrs.rightclick);
+        element.bind('contextmenu', function(event) {
+            scope.$apply(function() {
+                event.preventDefault();
+                fn(scope, {$event:event});
+            });
+        });
+    };
+});
 /*
 .directive('ngSpace', function () {
     return function (scope, element, attrs) {

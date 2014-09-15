@@ -1,10 +1,11 @@
 <p>Play Mine Sweeper</p>
-<div id = "game" ng-keyup="myFunct($event, cell)" tabindex="0">
+<div id = "game">
 	<div class = "column" ng-repeat = "column in board">
 		<div class = 'rows' 
 		ng-repeat = "cell in column" 
 		sglclick="test(cell)" 
-		ng-dblClick="doubleClick(cell)">
+		ng-dblClick="doubleClick(cell)"
+		rightclick = "rightClick(cell)">
 
 			<div ng-show = "cell.reveal">{{cell.appearance}}</div>
 
