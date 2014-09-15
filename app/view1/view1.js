@@ -48,6 +48,7 @@ function Cell(number){
 	this.mine = false;
 	this.revealed = false;
 	this.flagged = false;
+	this.nextTo=[];
 }
 
 Cell.prototype.setMine = function(){
@@ -107,6 +108,7 @@ Game.prototype.generateMines = function(boardsize, mines){
 }
 
 Game.prototype.updatePosition = function(array, size){
+	var self = this;
 	var assignPosition = function(i, size){
 		//corner cases
 		if(i == 0){
@@ -140,10 +142,50 @@ Game.prototype.updatePosition = function(array, size){
 
 	_.each(array, function(cell){
 		cell.position = assignPosition(cell.number, size);
+		cell.nextTo = self.updateNextTo(cell.position, cell.number, size)
 	})
 	return array;
 };
 
+Game.prototype.updateNextTo = function(type, index, size){
+	var top = index -1
+	var bot = index + 1
+	var left = index - size;
+	var right = index + size;
+	var top_left = index - size - 1;
+	var top_right = index + size - 1;
+	var bot_left = index - size + 1;
+	var bot_right = index + size + 1;
+
+	if(type === "top-left"){
+		return [right, bot_right, bot]
+	}
+	else if(type === "bot-right"){
+		return [top, left, top_left]
+	}
+	else if (type === "bot-left"){
+		return [top, right, top_right]
+	}
+	else if (type === "top-right"){
+		return [bot, left, bot_left]
+	}
+	else if (type === "top"){
+		return [left, right, bot, bot_left, bot_right]
+	}
+	else if (type === "bot"){
+		return [left, right, top, top_left, top_right]
+	}
+	else if (type === "left"){
+		return [top, bot, right, bot_right, top_right]
+	}
+	else if (type === "right"){
+		return [top, bot, left, bot_left, top_left]
+	}
+
+	else {
+		return [top, bot, left, right, top_right, top_left, bot_left, bot_right]
+	}
+}
 Game.prototype.updateSensor = function(array){
 
 }
