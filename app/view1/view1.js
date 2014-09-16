@@ -241,7 +241,7 @@ Game.prototype.updateSensorClass = function(n){
 }
 Game.prototype.updateAppearance = function(isMine, sensor){
 	if(isMine){
-		return 'X'
+		return ''
 	}
 	else if (sensor == 0){
 		return '-'
@@ -298,7 +298,7 @@ Game.prototype.flag = function(cell){
 	else{
 		ele.flagged = true;
 		self.flags--;
-		ele.appearance = 'F';
+		ele.appearance = '';
 	}
 }
 
@@ -352,6 +352,10 @@ Game.prototype.gameover = function(){
 };
 
 Game.prototype.checkForWin = function(){
+	if(this.status==="x_X"){
+		console.log("game is already over");
+		return;
+	}
 	var self = this;
 	var array = _.flatten(self.board);
 	var revealed = 0;

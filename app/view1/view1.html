@@ -2,6 +2,7 @@
 <div id = "game">
 
 	<div class = 'gameStatus'>
+		<span class="glyphicon glyphicon-certificate"></span>
 		<div class = 'rows'><h4>{{game.flags}}</h4></div>
 		<div class = 'rows' ng-click = "newGame()"><h4>{{game.status}}</h4></div>
 	</div>
@@ -14,7 +15,13 @@
 		ng-dblClick="doubleClick(cell)"
 		rightclick = "rightClick(cell)">
 
-			<div ng-show = "cell.reveal || cell.flagged">{{cell.appearance}}</div>
+			<div ng-show = "cell.reveal || cell.flagged">
+				{{cell.appearance}}
+				<div ng-show = 'cell.mine && !cell.flagged'>
+					<span class="glyphicon glyphicon-certificate"></span>
+				</div>
+			</div>
+			<div ng-show = "cell.flagged" class = 'flag'><span class="glyphicon glyphicon-flag"></span></div>
 
 		</div>
 
