@@ -1,9 +1,9 @@
 <p>Mine Sweeper</p>
 <div class = 'gameStatus'>
-	{{flags}} | {{status}} 
+	{{game.flags}} | <span ng-click = "newGame()">{{game.status}}</span>
 </div>
 <div id = "game">
-	<div class = "column" ng-repeat = "column in board">
+	<div class = "column" ng-repeat = "column in game.board">
 		<div class = 'rows' 
 		ng-repeat = "cell in column" 
 		sglclick="reveal(cell)" 

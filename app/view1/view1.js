@@ -227,7 +227,9 @@ Game.prototype.reveal = function(cell){
 			var ele = self.find(cell);
 		if(!ele.flagged){
 			ele.reveal = true;
-
+			if (ele.mine){
+				self.gameover();
+			};
 			if (ele.sensor == 0 && !ele.mine){
 				_.each(ele.nextTo, function(cell){
 					if(!_.contains(revealed, cell))
@@ -316,13 +318,13 @@ angular.module('myApp.view1', ['ngRoute'])
 
 .controller('View1Ctrl', ['$scope', function($scope) {
 	$scope.game = new Game(9,11);
-	$scope.board = $scope.game.board;
-	$scope.flags = $scope.game.flags;
-	$scope.status = $scope.game.status;
 
+	$scope.newGame = function(){
+		$scope.game = new Game(9,11);	
+	};
 	$scope.reveal = function(cell) {
 	    $scope.game.reveal(cell.number);
-	}
+	};
 	$scope.doubleClick = function(cell) {
 		$scope.game.checkFlag(cell.number);
 	};
