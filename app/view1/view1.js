@@ -50,8 +50,8 @@ function Cell(number){
 	this.appearance = '';
 	this.flagged = false;
 	this.nextTo=[];
-	this.cellClass = 'test1';
-	this.textClass = 'test2';
+	this.cellClass = '';
+	this.textClass = '';
 }
 
 Cell.prototype.setMine = function(){
@@ -265,6 +265,7 @@ Game.prototype.reveal = function(cell){
 			var ele = self.find(cell);
 		if(!ele.flagged){
 			ele.reveal = true;
+			ele.cellClass = 'revealed';
 			if (ele.mine){
 				self.gameover();
 			};
@@ -283,6 +284,7 @@ Game.prototype.reveal = function(cell){
 
 Game.prototype.revealTarget = function(cell){
 	this.find(cell).reveal = true;
+	this.find(cell).cellClass = 'revealed';
 };
 
 Game.prototype.flag = function(cell){

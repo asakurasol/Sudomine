@@ -21,11 +21,11 @@ body{
     height: 48px;
     border: 2px solid;
     border-color: #eeeeee #999999 #999999 #eeeeee;
-    background-color: #dddddd;
+    background-color: #cccccc;
     line-height: 48px;
     vertical-align: middle;
     font-family: 'Nunito', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: bold;
       -moz-user-select: none;
       -webkit-user-select: none;
@@ -33,7 +33,7 @@ body{
 }
 
 .revealed{
-  background-color: #eeeeee;
+  background-color: #dddddd;
 }
 
 .one {
