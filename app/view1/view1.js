@@ -50,6 +50,8 @@ function Cell(number){
 	this.appearance = '';
 	this.flagged = false;
 	this.nextTo=[];
+	this.cellClass = 'test1';
+	this.textClass = 'test2';
 }
 
 Cell.prototype.setMine = function(){
@@ -149,6 +151,8 @@ Game.prototype.updateProps = function(array, size){
 		cell.position = assignPosition(cell.number, size);
 		cell.nextTo = self.updateNextTo(cell.position, cell.number, size);
 		cell.sensor = self.updateSensor(cell.nextTo, array);
+		cell.textClass = self.updateSensorClass(cell.sensor);
+		console.log(cell.textClass);
 		cell.appearance = self.updateAppearance(cell.mine, cell.sensor);
 	})
 	return array;
@@ -201,6 +205,38 @@ Game.prototype.updateSensor = function(nextTo, array){
 		}
 		return result
 	}, result)
+}
+
+Game.prototype.updateSensorClass = function(n){
+	if(n == '1'){
+		return 'one';
+	}
+	else if (n=='2'){
+		return 'two'
+	}
+	else if (n=='3'){
+		return 'three'
+	}
+	else if (n=='4'){
+		return 'four'
+	}
+	else if (n=='5'){
+		return 'five'
+	}
+	else if (n=='6'){
+		return 'six'
+	}
+	else if (n=='7'){
+		return '7'
+	}
+	else if (n=='8'){
+		return '8'
+	}
+	else {
+		return '';
+	};
+	
+
 }
 Game.prototype.updateAppearance = function(isMine, sensor){
 	if(isMine){

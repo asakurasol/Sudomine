@@ -6,38 +6,10 @@ body{
   text-align: center;
 }
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-
-.menu:before {
-  content: "[";
-}
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-
 #game{
   margin: auto;
-  width: 40%;
+  width: 80%;
+  text-align: center;
 }
 .column{
    float: left;
@@ -48,9 +20,15 @@ body{
 .rows{
     width: 48px;
     height: 48px;
-    border: 1px solid #999999;
+    border: 2px solid;
+    border-color: #eeeeee #999999 #999999 #eeeeee;
+    background-color: #cccccc;
     line-height: 48px;
     vertical-align: middle;
+}
+
+.revealed{
+  background-color: #eeeeee;
 }
 
 ::-moz-selection{
@@ -61,4 +39,29 @@ body{
 ::selection {
   background-color:Transparent;
   color:#000;
+}
+
+.one {
+  color: #0000cd; 
+}
+.two {
+  color: #228b22; 
+}
+.three {
+  color: #cd333e; 
+}
+.four {
+  color: #00008b;
+}
+.five {
+  color: #8b0000;
+}
+.six {
+  color: teal;
+}
+.seven {
+  color: #7851a9;
+}
+.eight {
+  color: black; 
 }

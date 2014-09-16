@@ -1,10 +1,14 @@
 <h3>Mine Sweeper</h3>
-<div class = 'gameStatus'>
-	{{game.flags}} <span ng-click = "newGame()"><h4>{{game.status}}</h4></span>
-</div>
 <div id = "game">
+
+	<div class = 'gameStatus'>
+		<div class = 'rows'><h4>{{game.flags}}</h4></div>
+		<div class = 'rows' ng-click = "newGame()"><h4>{{game.status}}</h4></div>
+	</div>
+
 	<div class = "column" ng-repeat = "column in game.board">
-		<div class = 'rows' 
+		<div class = 'rows'
+		ng-class = "[cell.cellClass, cell.textClass]"
 		ng-repeat = "cell in column" 
 		sglclick="reveal(cell)" 
 		ng-dblClick="doubleClick(cell)"

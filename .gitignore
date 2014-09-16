@@ -27,7 +27,7 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-#angular seed
+# angular seed
 bower.json
 karma.conf.js
 LICENSE
