@@ -89,6 +89,8 @@ function Game(size,mines){
 	//output the board
 	this.size = size;
 	this.board = board;
+	this.flags = mines;
+	this.status = 'o_o';
 } 
 
 Game.prototype.generateMines = function(boardsize, mines){
@@ -242,15 +244,18 @@ Game.prototype.reveal = function(cell){
 Game.prototype.flag = function(cell){
 	var self = this;
 	var ele = self.find(cell);
+	console.log(ele);
 	if(ele.reveal){
 	}
 	else if (ele.flagged){
 		ele.flagged = false;
+		self.flags++;
 		ele.appearance = self.updateAppearance(ele.mine, ele.sensor);
 	}
 	else{
 		ele.flagged = true;
-		ele.appearance = 'F'
+		self.flags--;
+		ele.appearance = 'F';
 	}
 }
 
@@ -293,7 +298,12 @@ Game.prototype.checkFlag = function(cell){
 
 Game.prototype.gameover = function(){
 	console.log("Game over!");
+	this.status = "x_X";
 };
+
+Game.prototype.win = function(){
+	this.status = "^_^";
+}
 
 angular.module('myApp.view1', ['ngRoute'])
 
@@ -307,6 +317,9 @@ angular.module('myApp.view1', ['ngRoute'])
 .controller('View1Ctrl', ['$scope', function($scope) {
 	$scope.game = new Game(9,11);
 	$scope.board = $scope.game.board;
+	$scope.flags = $scope.game.flags;
+	$scope.status = $scope.game.status;
+
 	$scope.reveal = function(cell) {
 	    $scope.game.reveal(cell.number);
 	}
@@ -314,7 +327,10 @@ angular.module('myApp.view1', ['ngRoute'])
 		$scope.game.checkFlag(cell.number);
 	};
 	$scope.rightClick = function(cell) {
+		console.log(cell);
+		console.log(cell.number);
 		$scope.game.flag(cell.number);
+		$scope.flags = $scope.game.flags;
 	};
 }])
 
