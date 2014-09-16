@@ -251,7 +251,6 @@ Game.prototype.revealTarget = function(cell){
 Game.prototype.flag = function(cell){
 	var self = this;
 	var ele = self.find(cell);
-	console.log(ele);
 	if(ele.reveal || self.flags <= 0){
 	}
 	else if (ele.flagged){
@@ -320,7 +319,9 @@ Game.prototype.checkForWin = function(){
 	var array = _.flatten(self.board);
 	var revealed = 0;
 	revealed = _.reduce(array, function(result, element){
-		if(element.revealed){
+		console.log(element);
+		if(element.reveal){
+			console.log("this ran");
 			return ++result;
 		}
 		return result;
@@ -328,6 +329,8 @@ Game.prototype.checkForWin = function(){
 	if(revealed === array.length-self.mines){
 		this.status = "^_^";
 	}
+	console.log(revealed);
+	console.log(array.length-self.mines);
 }
 
 angular.module('myApp.view1', ['ngRoute'])
