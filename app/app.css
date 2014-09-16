@@ -52,3 +52,13 @@ body{
     line-height: 48px;
     vertical-align: middle;
 }
+
+::-moz-selection{
+  background-color:Transparent;
+  color:#000;
+}
+
+::selection {
+  background-color:Transparent;
+  color:#000;
+}

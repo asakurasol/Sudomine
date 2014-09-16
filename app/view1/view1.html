@@ -1,6 +1,6 @@
-<p>Mine Sweeper</p>
+<h3>Mine Sweeper</h3>
 <div class = 'gameStatus'>
-	{{game.flags}} | <span ng-click = "newGame()">{{game.status}}</span>
+	{{game.flags}} <span ng-click = "newGame()"><h4>{{game.status}}</h4></span>
 </div>
 <div id = "game">
 	<div class = "column" ng-repeat = "column in game.board">
