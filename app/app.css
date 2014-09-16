@@ -22,30 +22,26 @@ body{
     height: 48px;
     border: 2px solid;
     border-color: #eeeeee #999999 #999999 #eeeeee;
-    background-color: #cccccc;
+    background-color: #dddddd;
     line-height: 48px;
     vertical-align: middle;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none; 
 }
 
 .revealed{
   background-color: #eeeeee;
 }
 
-::-moz-selection{
-  background-color:Transparent;
-  color:#000;
-}
-
-::selection {
-  background-color:Transparent;
-  color:#000;
-}
-
 .one {
   color: #0000cd; 
 }
 .two {
-  color: #228b22; 
+  color: #228b22;  
 }
 .three {
   color: #cd333e; 
@@ -64,4 +60,8 @@ body{
 }
 .eight {
   color: black; 
+}
+
+.mine {
+  color:black;
 }

@@ -151,8 +151,9 @@ Game.prototype.updateProps = function(array, size){
 		cell.position = assignPosition(cell.number, size);
 		cell.nextTo = self.updateNextTo(cell.position, cell.number, size);
 		cell.sensor = self.updateSensor(cell.nextTo, array);
-		cell.textClass = self.updateSensorClass(cell.sensor);
-		console.log(cell.textClass);
+		if(!cell.mine) {
+			cell.textClass = self.updateSensorClass(cell.sensor);
+		};
 		cell.appearance = self.updateAppearance(cell.mine, cell.sensor);
 	})
 	return array;
@@ -355,9 +356,7 @@ Game.prototype.checkForWin = function(){
 	var array = _.flatten(self.board);
 	var revealed = 0;
 	revealed = _.reduce(array, function(result, element){
-		console.log(element);
 		if(element.reveal){
-			console.log("this ran");
 			return ++result;
 		}
 		return result;
@@ -365,8 +364,6 @@ Game.prototype.checkForWin = function(){
 	if(revealed === array.length-self.mines){
 		this.status = "^_^";
 	}
-	console.log(revealed);
-	console.log(array.length-self.mines);
 }
 
 angular.module('myApp.view1', ['ngRoute'])
@@ -393,8 +390,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	    $scope.game.checkForWin();
 	};
 	$scope.rightClick = function(cell) {
-		console.log(cell);
-		console.log(cell.number);
+		console.log('right clicked');
 		$scope.game.flag(cell.number);
 		$scope.flags = $scope.game.flags;
 	};
