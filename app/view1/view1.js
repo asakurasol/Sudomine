@@ -40,8 +40,28 @@ if (!Array.prototype.fill) {
     return O;
   };
 }
+function Sudoku(number){
+	this.seed = [
+		[9,6,7,1,8,4,3,2,5],
+		[3,5,1,9,7,2,4,6,8],
+		[4,2,8,6,5,3,1,9,7],
+		[1,4,5,2,6,8,9,7,3],
+		[8,7,3,4,9,1,6,5,2],
+		[2,9,6,5,3,7,8,4,1],
+		[7,8,4,3,2,9,5,1,9],
+		[5,3,9,7,1,6,2,8,4],
+		[6,1,2,8,4,5,7,3,9],
+	]
 
-function Cell(number){
+	this.puzzle = this.scramble(number);
+}
+
+Sudoku.prototype.scramble = function(number){
+	return _.flatten(this.seed);
+}
+function Cell(number, sudokuNum){
+
+	//mine sweeper mechanics
 	this.number = number;
 	this.sensor = 0;
 	this.position = "middle";
@@ -50,8 +70,14 @@ function Cell(number){
 	this.appearance = '';
 	this.flagged = false;
 	this.nextTo=[];
+
+	//minesweeper displays
+
 	this.cellClass = '';
 	this.textClass = '';
+
+	//sudoku mechanics
+	this.sudokuNum = sudokuNum;
 }
 
 Cell.prototype.setMine = function(){
@@ -60,10 +86,14 @@ Cell.prototype.setMine = function(){
 
 function Game(size,mines){
 
+	//create the puzzle for sudoku
+	this.sudoku = new Sudoku();
+	console.log(this.puzzle);
+
 	//generate a cell to fill up the board
 	var cells = [].fill.call({ length: size*size },'');
 	for(var i = 0; i < cells.length; i++){
-		cells[i]= new Cell(i);
+		cells[i]= new Cell(i, this.sudoku.puzzle[i]);
 	};
 
 	//randomly generate the mine locations
@@ -88,12 +118,13 @@ function Game(size,mines){
 		board.push(column);
 	};
 
-	//output the board
+	//output the board for mine sweepers
 	this.size = size;
 	this.board = board;
 	this.mines = mines;
 	this.flags = mines;
 	this.status = 'o_o';
+	this.sweeper = true;
 } 
 
 Game.prototype.generateMines = function(boardsize, mines){

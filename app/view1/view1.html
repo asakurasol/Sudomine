@@ -14,15 +14,19 @@
 		sglclick="reveal(cell)" 
 		ng-dblClick="doubleClick(cell)"
 		rightclick = "rightClick(cell)">
-
-			<div ng-show = "cell.reveal || cell.flagged">
-				{{cell.appearance}}
-				<div ng-show = 'cell.mine && !cell.flagged'>
-					<span class="glyphicon glyphicon-certificate"></span>
-				</div>
+			<div class = 'sudoku' ng-show = '!game.sweeper'>
+				{{cell.sudokuNum}}
 			</div>
-			<div ng-show = "cell.flagged" class = 'flag'><span class="glyphicon glyphicon-flag"></span></div>
 
+			<div class = 'sweeper' ng-show = 'game.sweeper'>
+				<div ng-show = "cell.reveal || cell.flagged">
+					{{cell.appearance}}
+					<div ng-show = 'cell.mine && !cell.flagged'>
+						<span class="glyphicon glyphicon-certificate"></span>
+					</div>
+				</div>
+				<div ng-show = "cell.flagged" class = 'flag'><span class="glyphicon glyphicon-flag"></span></div>
+			</div>
 		</div>
 
 	</div>

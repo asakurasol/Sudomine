@@ -32,39 +32,39 @@ body{
       -ms-user-select: none; 
 }
 
-.revealed{
+.revealed .sweeper{
   background-color: #dddddd;
 }
 
-.one {
+.one .sweeper {
   color: #0000cd; 
 }
-.two {
+.two .sweeper {
   color: #228b22;  
 }
-.three {
+.three .sweeper {
   color: #cd333e; 
 }
-.four {
+.four .sweeper {
   color: #00008b;
 }
-.five {
+.five .sweeper {
   color: #8b0000;
 }
-.six {
+.six .sweeper {
   color: teal;
 }
-.seven {
+.seven .sweeper {
   color: #7851a9;
 }
-.eight {
+.eight .sweeper{
   color: black; 
 }
 
-.mine {
+.mine .sweeper {
   color:black;
 }
 
-.flag{
+ .sweeper .flag{
   color:red;
 }
