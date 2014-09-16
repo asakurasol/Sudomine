@@ -56,7 +56,7 @@ Cell.prototype.setMine = function(){
 	this.mine = true;
 }
 
-function Game(size){
+function Game(size,mines){
 
 	//generate a cell to fill up the board
 	var cells = [].fill.call({ length: size*size },'');
@@ -65,7 +65,7 @@ function Game(size){
 	};
 
 	//randomly generate the mine locations
-	var mineLocations = this.generateMines(size*size, 10);
+	var mineLocations = this.generateMines(size*size, mines);
 
 	_.each(mineLocations, function(location){
 		cells[location].setMine();
@@ -305,17 +305,15 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ['$scope', function($scope) {
-	$scope.game = new Game(9);
+	$scope.game = new Game(9,11);
 	$scope.board = $scope.game.board;
-	$scope.test = function(cell) {
-		console.log("single")
+	$scope.reveal = function(cell) {
 	    $scope.game.reveal(cell.number);
 	}
 	$scope.doubleClick = function(cell) {
 		$scope.game.checkFlag(cell.number);
 	};
 	$scope.rightClick = function(cell) {
-		console.log("right")
 		$scope.game.flag(cell.number);
 	};
 }])
