@@ -26,3 +26,11 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+#angular seed
+bower.json
+karma.conf.js
+LICENSE
+package.json
+e2e-tests
+bower_components
