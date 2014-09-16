@@ -254,6 +254,47 @@ Game.prototype.flag = function(cell){
 	}
 }
 
+Game.prototype.checkFlag = function(cell){
+	var self = this;
+	var ele = self.find(cell);
+	var flags = 0;
+	var sensorMatchFlag = true;
+	var flagMatchMine = true;
+
+	_.each(ele.nextTo, function(cell){
+		var neighbor = self.find(cell);
+		if(neighbor.mine && !neighbor.flagged){
+			flagMatchMine = false;
+		};
+		if(neighbor.flagged){
+			flags++;
+		}
+	})
+
+	if(!(flags === ele.sensor)){
+		sensorMatchFlag = false;
+	}
+
+	if (!sensorMatchFlag){		
+	}
+	else if (!flagMatchMine){
+		this.gameover();
+	}
+	else{
+		_.each(ele.nextTo, function(cell){
+			var neighbor = self.find(cell);
+			if(!neighbor.flagged)
+				{
+					self.reveal(neighbor.number);
+				}
+		})
+	}
+};
+
+Game.prototype.gameover = function(){
+	console.log("Game over!");
+};
+
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -271,17 +312,12 @@ angular.module('myApp.view1', ['ngRoute'])
 	    $scope.game.reveal(cell.number);
 	}
 	$scope.doubleClick = function(cell) {
-		console.log("double")
+		$scope.game.checkFlag(cell.number);
 	};
 	$scope.rightClick = function(cell) {
 		console.log("right")
 		$scope.game.flag(cell.number);
 	};
-	$scope.myFunct = function(keyEvent, cell) {
-	  console.log(keyEvent);
-	  if (keyEvent.which === 32)
-	    console.log(cell);
-	}
 }])
 
 .directive('sglclick', ['$parse', function($parse) {
@@ -319,20 +355,7 @@ angular.module('myApp.view1', ['ngRoute'])
         });
     };
 });
-/*
-.directive('ngSpace', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 32) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.ngSpace);
-                });
 
-                event.preventDefault();
-            }
-        });
-    };
-});*/
 
 
 
