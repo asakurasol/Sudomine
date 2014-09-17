@@ -315,8 +315,69 @@ Game.prototype.reveal = function(cell){
 }
 
 Game.prototype.firstClick = function(cell){
-		console.log(cell);
-		console.log("firstClick");
+	var left;
+	var self = this;
+
+	var refresh = function(){
+		var cells = _.flatten(self.board);
+		_.each(cells, function(cell){
+			cell.sensor = self.updateSensor(cell.nextTo, cells);
+			if(!cell.mine) {
+				cell.textClass = self.updateSensorClass(cell.sensor);
+			};
+			cell.appearance = self.updateAppearance(cell.mine, cell.sensor);
+		})
+	};
+
+	console.log('first click');
+	console.log(cell);
+	if(cell.number < 40){
+		left = true
+	}
+	else {
+		left = false;
+	};
+
+	if(!cell.mine && cell.sensor === 0){
+		console.log("no movement needed");
+		return '';
+	}
+	else if(!cell.mine && cell.sensor !== 0){
+		console.log('not mine, but sensor');
+	}
+	else if(cell.mine){
+		console.log("moved mine");
+		cell.mine = false;
+		if(left){
+			self.placeMine(self.board[7]);
+		}
+		else{
+			self.placeMine(self.board[1]);
+		};
+		refresh()
+		//establish current position
+		console.log("restarting game");
+	}
+}
+
+
+//go down an array and place a mine on the first non-mine cell
+//return true if mine is placed, return false if not
+Game.prototype.placeMine = function(arr){
+	var mine = 1;
+	var i = 0;
+	while(mine > 0 && i <arr.length){
+		if(!arr[i].mine){
+			arr[i].mine = true;
+			mine--;
+		}
+		i++;
+	}
+	if(mine){
+		return false;
+	}
+	return true;
+
 }
 
 Game.prototype.revealTarget = function(cell){
@@ -425,9 +486,9 @@ angular.module('myApp.view1', ['ngRoute'])
 		$scope.game = new Game(9,15);	
 	};
 	$scope.reveal = function(cell) {
+	    $scope.game.first(cell);
 	    $scope.game.reveal(cell.number);
 	    $scope.game.checkForWin();
-	    $scope.game.first(cell.number);
 	};
 	$scope.doubleClick = function(cell) {
 		$scope.game.checkFlag(cell.number);
