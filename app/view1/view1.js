@@ -413,10 +413,10 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ['$scope', function($scope) {
-	$scope.game = new Game(9,11);
+	$scope.game = new Game(9,15);
 
 	$scope.newGame = function(){
-		$scope.game = new Game(9,11);	
+		$scope.game = new Game(9,15);	
 	};
 	$scope.reveal = function(cell) {
 	    $scope.game.reveal(cell.number);
