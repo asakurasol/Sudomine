@@ -66,7 +66,7 @@ function Cell(number, sudokuNum){
 	this.sensor = 0;
 	this.position = "middle";
 	this.mine = false;
-	this.revealed = false;
+	this.reveal = false;
 	this.appearance = '';
 	this.flagged = false;
 	this.nextTo=[];
@@ -275,7 +275,7 @@ Game.prototype.updateAppearance = function(isMine, sensor){
 		return ''
 	}
 	else if (sensor == 0){
-		return '-'
+		return '.'
 	}
 	else {
 		return sensor;
@@ -356,7 +356,7 @@ Game.prototype.checkFlag = function(cell){
 		sensorMatchFlag = false;
 	}
 
-	if (!sensorMatchFlag){		
+	if (!sensorMatchFlag || !ele.reveal){		
 	}
 	else if (!flagMatchMine){
 		this.gameover();

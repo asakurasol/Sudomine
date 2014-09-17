@@ -13,16 +13,16 @@ body{
 }
 .column{
    float: left;
-   width: 48px;
+   width: 56px;
 }
 
 .rows{
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     border: 2px solid;
     border-color: #eeeeee #999999 #999999 #eeeeee;
     background-color: #cccccc;
-    line-height: 48px;
+    line-height: 56px;
     vertical-align: middle;
     font-family: 'Nunito', sans-serif;
     font-size: 1.3em;
@@ -32,7 +32,7 @@ body{
       -ms-user-select: none; 
 }
 
-.revealed .sweeper{
+.revealed {
   background-color: #dddddd;
 }
 

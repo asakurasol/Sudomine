@@ -19,7 +19,9 @@
 		ng-dblClick="doubleClick(cell)"
 		rightclick = "rightClick(cell)">
 			<div class = 'sudoku' ng-show = '!game.sweeper'>
-				{{cell.sudokuNum}}
+				<div ng-show = 'cell.reveal && cell.sensor !== 0'>
+					{{cell.sudokuNum}}
+				</div>
 			</div>
 
 			<div class = 'sweeper' ng-show = 'game.sweeper'>
