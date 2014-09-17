@@ -431,6 +431,15 @@ angular.module('myApp.view1', ['ngRoute'])
 		$scope.game.flag(cell.number);
 		$scope.flags = $scope.game.flags;
 	};
+	$scope.switch = function(){
+		console.log('switched');
+		if($scope.game.sweeper){
+			$scope.game.sweeper = false;
+		}
+		else{
+			$scope.game.sweeper = true;			
+		}
+	}
 }])
 
 .directive('sglclick', ['$parse', function($parse) {

@@ -1,8 +1,12 @@
 <h3>Mine Sweeper</h3>
 <div id = "game">
 
+	<a class="btn btn-warning" ng-click='switch()'>
+		<span class="glyphicon glyphicon-refresh"></span>
+		Switch</button>
+	</a>
+
 	<div class = 'gameStatus'>
-		<span class="glyphicon glyphicon-certificate"></span>
 		<div class = 'rows'><h4>{{game.flags}}</h4></div>
 		<div class = 'rows' ng-click = "newGame()"><h4>{{game.status}}</h4></div>
 	</div>
