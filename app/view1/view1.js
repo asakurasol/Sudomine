@@ -332,12 +332,7 @@ Game.prototype.firstClick = function(cell){
 	var moveMine = function(cell){
 		console.log("moved a mine");
 		cell.mine = false;
-		if(left){
-			self.placeMine(self.board[7]);
-		}
-		else{
-			self.placeMine(self.board[1]);
-		};
+		self.placeMine(left);
 	}
 
 	console.log('first click');
@@ -364,6 +359,7 @@ Game.prototype.firstClick = function(cell){
 		refresh();
 	}
 	else if(cell.mine && cell.sensor !== 0){
+		console.log('mine and sensor')
 		moveMine(cell);
 		_.each(cell.nextTo, function(n){
 			var cell = self.find(n);
@@ -374,6 +370,7 @@ Game.prototype.firstClick = function(cell){
 		refresh();
 	}
 	else if(cell.mine){
+		console.log('just a mine');
 		moveMine(cell);
 		refresh();
 	}
@@ -382,22 +379,27 @@ Game.prototype.firstClick = function(cell){
 
 //go down an array and place a mine on the first non-mine cell
 //return true if mine is placed, return false if not
-Game.prototype.placeMine = function(arr){
-	var mine = 1;
-	var i = 0;
-	while(mine > 0 && i <arr.length){
-		if(!arr[i].mine){
-			arr[i].mine = true;
-			mine--;
-			arr[i].textClass = '';
+Game.prototype.placeMine = function(left){
+	var self = this;
+	var rand = function(){
+		if(!left){
+			return Math.floor(Math.random()*30)
 		}
-		i++;
+		else return Math.floor(Math.random()*30)+40;
 	}
-	if(mine){
-		return false;
+	var recurse = function(){
+		var cell = self.find(rand());
+		if(cell.mine){
+			return recurse();
+		}
+		else{
+			cell.mine = true;
+			cell.textClass = '';
+			console.log("moved a mine to " + cell.number);
+			return cell.number;			
+		}
 	}
-	return true;
-
+	return recurse();
 }
 
 Game.prototype.revealTarget = function(cell){
@@ -500,10 +502,10 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ['$scope', function($scope) {
-	$scope.game = new Game(9,15);
+	$scope.game = new Game(9,17);
 
 	$scope.newGame = function(){
-		$scope.game = new Game(9,15);	
+		$scope.game = new Game(9,17);	
 	};
 	$scope.reveal = function(cell) {
 	    $scope.game.first(cell);
