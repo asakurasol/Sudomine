@@ -85,7 +85,7 @@ Cell.prototype.setMine = function(){
 }
 
 function Game(size,mines){
-
+	var self = this;
 	//create the puzzle for sudoku
 	this.sudoku = new Sudoku();
 	console.log(this.puzzle);
@@ -125,6 +125,7 @@ function Game(size,mines){
 	this.flags = mines;
 	this.status = 'o_o';
 	this.sweeper = true;
+	this.first = _.once(self.firstClick);
 } 
 
 Game.prototype.generateMines = function(boardsize, mines){
@@ -313,6 +314,11 @@ Game.prototype.reveal = function(cell){
 	recurse(cell);
 }
 
+Game.prototype.firstClick = function(cell){
+		console.log(cell);
+		console.log("firstClick");
+}
+
 Game.prototype.revealTarget = function(cell){
 	this.find(cell).reveal = true;
 	this.find(cell).cellClass = 'revealed';
@@ -421,6 +427,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	$scope.reveal = function(cell) {
 	    $scope.game.reveal(cell.number);
 	    $scope.game.checkForWin();
+	    $scope.game.first(cell.number);
 	};
 	$scope.doubleClick = function(cell) {
 		$scope.game.checkFlag(cell.number);
