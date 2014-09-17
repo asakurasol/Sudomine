@@ -65,6 +65,10 @@ body{
   color:black;
 }
 
- .sweeper .flag{
+.sweeper .flag{
   color:red;
+}
+
+.controls {
+  margin-left: 50px;
 }

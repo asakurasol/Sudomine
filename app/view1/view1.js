@@ -126,6 +126,7 @@ function Game(size,mines){
 	this.status = 'o_o';
 	this.sweeper = true;
 	this.first = _.once(self.firstClick);
+	this.controls = [1,2,3,4,5,6,7,8,9];
 } 
 
 Game.prototype.generateMines = function(boardsize, mines){
@@ -502,10 +503,10 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ['$scope', function($scope) {
-	$scope.game = new Game(9,17);
+	$scope.game = new Game(9,15);
 
 	$scope.newGame = function(){
-		$scope.game = new Game(9,17);	
+		$scope.game = new Game(9,15);	
 	};
 	$scope.reveal = function(cell) {
 	    $scope.game.first(cell);
