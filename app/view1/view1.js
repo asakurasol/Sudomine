@@ -329,8 +329,19 @@ Game.prototype.firstClick = function(cell){
 		})
 	};
 
+	var moveMine = function(cell){
+		console.log("moved a mine");
+		cell.mine = false;
+		if(left){
+			self.placeMine(self.board[7]);
+		}
+		else{
+			self.placeMine(self.board[1]);
+		};
+	}
+
 	console.log('first click');
-	console.log(cell);
+
 	if(cell.number < 40){
 		left = true
 	}
@@ -344,19 +355,27 @@ Game.prototype.firstClick = function(cell){
 	}
 	else if(!cell.mine && cell.sensor !== 0){
 		console.log('not mine, but sensor');
+		_.each(cell.nextTo, function(n){
+			var cell = self.find(n);
+			if(cell.mine){
+				moveMine(cell);
+			}
+		})
+		refresh();
+	}
+	else if(cell.mine && cell.sensor !== 0){
+		moveMine(cell);
+		_.each(cell.nextTo, function(n){
+			var cell = self.find(n);
+			if(cell.mine){
+				moveMine(cell);
+			}
+		})
+		refresh();
 	}
 	else if(cell.mine){
-		console.log("moved mine");
-		cell.mine = false;
-		if(left){
-			self.placeMine(self.board[7]);
-		}
-		else{
-			self.placeMine(self.board[1]);
-		};
-		refresh()
-		//establish current position
-		console.log("restarting game");
+		moveMine(cell);
+		refresh();
 	}
 }
 
@@ -370,6 +389,7 @@ Game.prototype.placeMine = function(arr){
 		if(!arr[i].mine){
 			arr[i].mine = true;
 			mine--;
+			arr[i].textClass = '';
 		}
 		i++;
 	}
@@ -500,7 +520,6 @@ angular.module('myApp.view1', ['ngRoute'])
 		$scope.flags = $scope.game.flags;
 	};
 	$scope.switch = function(){
-		console.log('switched');
 		if($scope.game.sweeper){
 			$scope.game.sweeper = false;
 		}
