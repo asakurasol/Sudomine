@@ -69,6 +69,27 @@ body{
   color:red;
 }
 
+.gameStatus {
+  margin-bottom: 80px;
+}
+
+#game .hack{
+  color : #62B262;
+  background-color: #4C4C4C;
+  width: 56px;
+  height: 56px;
+}
+
+#game .hack .hackreveal{
+  color : #62B262;
+  background-color: #414141;
+  width: 56px;
+  height: 56px;
+}
+
 .controls {
-  margin-left: 50px;
+  margin-left: 0px;
+  margin-top: -70px;
+  margin-bottom: 10px;
+
 }
