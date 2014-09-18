@@ -508,7 +508,10 @@ Game.prototype.setValue = function(cell,value){
 		}
 	}
 	else{
-
+		this.lives.splice(0,1);
+		if(this.lives.length === 0){
+			this.gameover();
+		}
 	};
 }
 
