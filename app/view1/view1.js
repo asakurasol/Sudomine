@@ -78,6 +78,7 @@ function Cell(number, sudokuNum){
 
 	//sudoku mechanics
 	this.sudokuNum = sudokuNum;
+	this.sudokuGuess = '';
 }
 
 Cell.prototype.setMine = function(){
@@ -127,6 +128,7 @@ function Game(size,mines){
 	this.sweeper = true;
 	this.first = _.once(self.firstClick);
 	this.controls = [1,2,3,4,5,6,7,8,9];
+	this.lives = [1,2,3];
 } 
 
 Game.prototype.generateMines = function(boardsize, mines){
@@ -384,9 +386,9 @@ Game.prototype.placeMine = function(left){
 	var self = this;
 	var rand = function(){
 		if(!left){
-			return Math.floor(Math.random()*30)
+			return Math.floor(Math.random()*35)
 		}
-		else return Math.floor(Math.random()*30)+40;
+		else return Math.floor(Math.random()*35)+45;
 	}
 	var recurse = function(){
 		var cell = self.find(rand());
@@ -493,6 +495,23 @@ Game.prototype.checkForWin = function(){
 	}
 }
 
+Game.prototype.setValue = function(cell,value){
+	if(cell.sudokuNum === value){
+		cell.sudokuGuess = value;
+		if(cell.mine && !cell.flagged){
+			this.flag(cell.number);
+		}
+		else if(cell.mine && cell.flagged){
+		}
+		else{
+			this.revealTarget(cell.number)
+		}
+	}
+	else{
+
+	};
+}
+
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -504,23 +523,41 @@ angular.module('myApp.view1', ['ngRoute'])
 
 .controller('View1Ctrl', ['$scope', function($scope) {
 	$scope.game = new Game(9,15);
+	$scope.cursorValue = '';
 
 	$scope.newGame = function(){
 		$scope.game = new Game(9,15);	
 	};
 	$scope.reveal = function(cell) {
-	    $scope.game.first(cell);
-	    $scope.game.reveal(cell.number);
-	    $scope.game.checkForWin();
+		if($scope.game.sweeper){
+		    $scope.game.first(cell);
+		    $scope.game.reveal(cell.number);
+		}
+		else{
+			console.log('this gets called');
+			$scope.game.setValue(cell, $scope.cursorValue);
+			$scope.cursorValue = '';
+		}
+		$scope.game.checkForWin();
 	};
 	$scope.doubleClick = function(cell) {
-		$scope.game.checkFlag(cell.number);
-	    $scope.game.checkForWin();
+		if($scope.game.sweeper){
+			$scope.game.checkFlag(cell.number);
+		    $scope.game.checkForWin();
+		}
+		else{
+
+		}
 	};
 	$scope.rightClick = function(cell) {
-		console.log('right clicked');
-		$scope.game.flag(cell.number);
-		$scope.flags = $scope.game.flags;
+		if($scope.game.sweeper){
+			console.log('right clicked');
+			$scope.game.flag(cell.number);
+			$scope.flags = $scope.game.flags;
+		}
+		else {
+
+		}
 	};
 	$scope.switch = function(){
 		if($scope.game.sweeper){
@@ -529,6 +566,11 @@ angular.module('myApp.view1', ['ngRoute'])
 		else{
 			$scope.game.sweeper = true;			
 		}
+	}
+
+	$scope.getValue = function(value){
+		$scope.cursorValue = value;
+		console.log($scope.cursorValue);
 	}
 }])
 

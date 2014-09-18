@@ -6,9 +6,12 @@
 		Switch</button>
 	</a>
 
-	<div class = 'gameStatus'>
-		<div class = 'rows'><h4>{{game.flags}}</h4></div>
+	<div class = 'gameStatus column'>
 		<div class = 'rows' ng-click = "newGame()"><h4>{{game.status}}</h4></div>
+		<div class = 'rows'><h4>{{game.flags}}</h4></div>
+		<div class = 'rows' 
+		ng-repeat = "life in game.lives"
+		ng-show = "!game.sweeper"><span class="glyphicon glyphicon-heart"></span></div>
 	</div>
 
 	<div class = "column" ng-repeat = "column in game.board">
@@ -19,8 +22,9 @@
 		ng-dblClick="doubleClick(cell)"
 		rightclick = "rightClick(cell)">
 			<div class = 'sudoku' ng-show = '!game.sweeper'>
-				<div ng-show = 'cell.reveal && cell.sensor !== 0'>
-					{{cell.sudokuNum}}
+				<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess'>
+					<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
+					<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
 				</div>
 			</div>
 
@@ -40,7 +44,9 @@
 	<div class = "column controls" ng-show = '!game.sweeper'>
 		<div class = 'rows' 
 		ng-repeat = "control in game.controls"
+		ng-click = "getValue(control)"
 		>
+		{{control}}
 		</div>
 	</div>
 </div>
