@@ -81,10 +81,19 @@ Sudoku.prototype.random9 = function(){
 	return this.randomArray(arr, 2);
 }
 
-//return 2 random numbers between 1-3 for row or column swapping
+//return 2 random numbers between 0-2 for row block or column block swapping 
 Sudoku.prototype.random3 = function(){
-	var arr = [1,2,3];
+	var arr = [0,1,2];
 	return this.randomArray(arr, 2);
+}
+
+//return 2 random numbers wihin 0-2, 3-5, 6-8 for row or column swapping
+Sudoku.prototype.random2in3 = function(){
+	var arr = [0,1,2];
+	var rand = Math.floor(Math,random()*3)*3
+	return _.map(this.randomArray(arr, 2), function(ele){
+		return ele + rand;
+	});
 }
 
 //swap numbers within the array n times
