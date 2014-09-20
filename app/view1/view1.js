@@ -57,8 +57,58 @@ function Sudoku(number){
 }
 
 Sudoku.prototype.scramble = function(number){
-	return _.flatten(this.seed);
+	var result = _.flatten(this.seed);
+	result = this.swapTrans(result, number)
+	return result;
 }
+
+
+//takes an array and returns a random array of non-repeating numbers
+Sudoku.prototype.randomArray = function(array, length){
+	var copy = array.slice();
+	var result = [];
+	for(var i = 0; i < length; i++){
+		var random = Math.floor(Math.random()*copy.length);
+		result.push(copy[random]);
+		copy.splice(random, 1);
+	}
+	return result;
+};
+
+//return 2 random numbers between 1-9 for number swapping
+Sudoku.prototype.random9 = function(){
+	var arr = [1,2,3,4,5,6,7,8,9];
+	return this.randomArray(arr, 2);
+}
+
+//return 2 random numbers between 1-3 for row or column swapping
+Sudoku.prototype.random3 = function(){
+	var arr = [1,2,3];
+	return this.randomArray(arr, 2);
+}
+
+//swap numbers within the array n times
+Sudoku.prototype.swapTrans = function(array,n){
+
+	if(n<=0){
+		return array;
+	}
+	else{
+		var randoms = this.random9();
+		var num1 = randoms[0];
+		var num2 = randoms[1];
+		_.each(array, function(num){
+			if (n === num1){
+				n = num2;
+			}
+			else if (n ===num2){
+				n = num1;
+			}
+		});
+		return this.swapTrans(array, n-1)
+	}
+}
+
 function Cell(number, sudokuNum){
 
 	//mine sweeper mechanics
@@ -88,7 +138,7 @@ Cell.prototype.setMine = function(){
 function Game(size,mines){
 	var self = this;
 	//create the puzzle for sudoku
-	this.sudoku = new Sudoku();
+	this.sudoku = new Sudoku(3);
 	console.log(this.puzzle);
 
 	//generate a cell to fill up the board
@@ -335,7 +385,7 @@ Game.prototype.firstClick = function(cell){
 	var moveMine = function(cell){
 		console.log("moved a mine");
 		cell.mine = false;
-		self.placeMine(left);
+		self.placeMine(cell.nextTo);
 	}
 
 	console.log('first click');
@@ -382,17 +432,14 @@ Game.prototype.firstClick = function(cell){
 
 //go down an array and place a mine on the first non-mine cell
 //return true if mine is placed, return false if not
-Game.prototype.placeMine = function(left){
+Game.prototype.placeMine = function(array){
 	var self = this;
 	var rand = function(){
-		if(!left){
-			return Math.floor(Math.random()*35)
-		}
-		else return Math.floor(Math.random()*35)+45;
+		return Math.floor(Math.random()*81);
 	}
 	var recurse = function(){
 		var cell = self.find(rand());
-		if(cell.mine){
+		if(cell.mine || _.contains(array,cell.number)){
 			return recurse();
 		}
 		else{
