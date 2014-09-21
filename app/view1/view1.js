@@ -96,6 +96,14 @@ Sudoku.prototype.random2in3 = function(){
 	});
 }
 
+Sudoku.prototype.swapRows = function(){
+
+}
+
+Sudoku.prototype.swapColumns = function(){
+
+}
+
 //swap numbers within the array n times
 Sudoku.prototype.swapTrans = function(array,n){
 
