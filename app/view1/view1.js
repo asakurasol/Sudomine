@@ -601,6 +601,7 @@ angular.module('myApp.view1', ['ngRoute'])
 		    $scope.game.reveal(cell.number);
 		}
 		else{
+			//there is an error here
 			console.log('this gets called');
 			$scope.game.setValue(cell, $scope.cursorValue);
 			$scope.cursorValue = '';
