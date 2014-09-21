@@ -40,7 +40,11 @@ if (!Array.prototype.fill) {
     return O;
   };
 }
+
+
 function Sudoku(number){
+
+	//improve on this later to start from a different seed
 	this.seed = [
 		[9,6,7,1,8,4,3,2,5],
 		[3,5,1,9,7,2,4,6,8],
@@ -57,11 +61,16 @@ function Sudoku(number){
 }
 
 Sudoku.prototype.scramble = function(number){
-	var result = _.flatten(this.seed);
-	result = this.swapTrans(result, number)
+	var result = this.seed;
+	//swap rows and columns
+	result = this.swapRows(result);
+	result = this.swapColumns(result);
+	//flatten the array matrix
+	result = _.flatten(this.seed);
+	//swap some more numbers around
+	result = this.swap(result, number);
 	return result;
 }
-
 
 //takes an array and returns a random array of non-repeating numbers
 Sudoku.prototype.randomArray = function(array, length){
@@ -90,39 +99,58 @@ Sudoku.prototype.random3 = function(){
 //return 2 random numbers wihin 0-2, 3-5, 6-8 for row or column swapping
 Sudoku.prototype.random2in3 = function(){
 	var arr = [0,1,2];
-	var rand = Math.floor(Math,random()*3)*3
+	var rand = Math.floor(Math.random()*3)*3
 	return _.map(this.randomArray(arr, 2), function(ele){
 		return ele + rand;
 	});
 }
 
-Sudoku.prototype.swapRows = function(){
-
+Sudoku.prototype.swapRows = function(array){
+	var randoms = this.random2in3();
+	var num1 = randoms[0];
+	var num2 = randoms[1];
+	for(var i = 0; i < array.length; i++)
+		{
+			var ele = array[i];
+			var temp = ele[num1];
+			ele[num1] = ele[num2];
+			ele[num2] = temp;
+		}
+	return array;
 }
 
-Sudoku.prototype.swapColumns = function(){
-
+Sudoku.prototype.swapColumns = function(array){
+	var randoms = this.random2in3();
+	var num1 = randoms[0];
+	var num2 = randoms[1];
+	var copy = array[num1].slice();
+	array[num1] = array[num2];
+	array[num2] = copy;
+	return array;
 }
 
 //swap numbers within the array n times
-Sudoku.prototype.swapTrans = function(array,n){
+Sudoku.prototype.swap = function(array,n){
 
-	if(n<=0){
+	if(n <= 0){
 		return array;
 	}
 	else{
 		var randoms = this.random9();
 		var num1 = randoms[0];
 		var num2 = randoms[1];
-		_.each(array, function(num){
-			if (n === num1){
-				n = num2;
-			}
-			else if (n ===num2){
-				n = num1;
-			}
-		});
-		return this.swapTrans(array, n-1)
+		for(var i = 0; i < array.length; i++)
+			{
+				if (array[i] === num1){
+					console.log("swrapped " + array[i] + " and " + num2)
+					array[i] = num2;
+
+				}
+				else if (array[i] ===num2){
+					array[i] = num1;
+				}
+		}
+		return this.swap(array, n-1)
 	}
 }
 
@@ -155,8 +183,7 @@ Cell.prototype.setMine = function(){
 function Game(size,mines){
 	var self = this;
 	//create the puzzle for sudoku
-	this.sudoku = new Sudoku(3);
-	console.log(this.puzzle);
+	this.sudoku = new Sudoku(5);
 
 	//generate a cell to fill up the board
 	var cells = [].fill.call({ length: size*size },'');
@@ -602,7 +629,6 @@ angular.module('myApp.view1', ['ngRoute'])
 		}
 		else{
 			//there is an error here
-			console.log('this gets called');
 			$scope.game.setValue(cell, $scope.cursorValue);
 			$scope.cursorValue = '';
 		}
