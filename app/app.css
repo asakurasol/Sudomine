@@ -6,12 +6,17 @@ body{
   text-align: center;
 }
 
+#bar{
+  margin: auto;
+  width: 600px;
+  height: 200px;
+  text-align: center;
+}
+
 #game{
   margin: auto;
   width: 600px;
   height: 600px;
-  border : 2px solid;
-  border-color: black;
   text-align: center;
 }
 .column{
@@ -85,16 +90,16 @@ body{
   border: 2px solid;
   border-radius: 0px;
   border-color: #62B262;
-  width: 56px;
-  height: 56px;
+  width: 100%;
+  height: 100%;
 }
 
 #game .hack .hackreveal{
   color : #62B262;
   background-color: #414141;
   border-color: #62B262;
-  width: 56px;
-  height: 56px;
+  width: 100%;
+  height: 100%;
 }
 
 .controls {
