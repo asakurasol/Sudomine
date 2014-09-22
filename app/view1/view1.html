@@ -1,73 +1,73 @@
-<div>
-	<h3>Mine Sweeper</h3>
-</div>
+<div class = 'content'>
+	<div id = "bar">
+	<h1>sudomine</h1>
+	<h4>minesweepr + sudoku</h4>
+		<div class = 'gameStatus row'>
+			<div class = 'column' ng-click = "newGame()">
+					<div class = 'rows'>
+							<h4>{{game.status}}</h4>
+					</div>
+			</div>
 
-<div id = "bar">
-	<div class = 'gameStatus row'>
-		<div class = 'column' ng-click = "newGame()">
+			<div class = 'column'>
 				<div class = 'rows'>
-						<h4>{{game.status}}</h4>
+					<h4>{{game.flags}}</h4>
 				</div>
+			</div>
+
+			<div class = 'column' ng-click='switch()'>
+				<div class = 'rows hack'>
+					<span class="glyphicon glyphicon-th-large"></span>
+				</div>
+			</div>
+
+			<div class = 'column' 
+			ng-repeat = "life in game.lives"
+			ng-show = "!game.sweeper">
+				<div class ='rows hack'>
+					<span class="glyphicon glyphicon-heart"></span>
+				</div>
+			</div>
+
 		</div>
 
-		<div class = 'column'>
-			<div class = 'rows'>
-				<h4>{{game.flags}}</h4>
+		<div class = "row controls" ng-show = '!game.sweeper'>
+			<div class = 'column' 
+			ng-repeat = "control in game.controls"
+			ng-click = "getValue(control)"
+			>
+				<div class = 'rows hack'>{{control}}</div>
 			</div>
 		</div>
 
-		<div class = 'column' ng-click='switch()'>
-			<div class = 'rows hack'>
-				<span class="glyphicon glyphicon-th-large"></span>
-			</div>
-		</div>
-
-		<div class = 'column' 
-		ng-repeat = "life in game.lives"
-		ng-show = "!game.sweeper">
-			<div class ='rows hack'>
-				<span class="glyphicon glyphicon-heart"></span>
-			</div>
-		</div>
-
-	</div>
-
-	<div class = "row controls" ng-show = '!game.sweeper'>
-		<div class = 'column' 
-		ng-repeat = "control in game.controls"
-		ng-click = "getValue(control)"
-		>
-			<div class = 'rows hack'>{{control}}</div>
-		</div>
-	</div>
 </div>
-	
-<div id = "game">
+		
+	<div id = "game">
 
-	<div class = "column" ng-repeat = "column in game.board">
-		<div class = 'rows'
-		ng-class = "[cell.cellClass, cell.textClass]"
-		ng-repeat = "cell in column" 
-		sglclick="reveal(cell)" 
-		ng-dblClick="doubleClick(cell)"
-		rightclick = "rightClick(cell)">
-			<div class = 'sudoku hack' ng-show = '!game.sweeper' >
-				<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess' class = 'hackreveal'>
-					<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
-					<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
-				</div>
-			</div>
-
-			<div class = 'sweeper' ng-show = 'game.sweeper'>
-				<div ng-show = "cell.reveal || cell.flagged">
-					{{cell.appearance}}
-					<div ng-show = 'cell.mine && !cell.flagged'>
-						<span class="glyphicon glyphicon-certificate"></span>
+		<div class = "column" ng-repeat = "column in game.board">
+			<div class = 'rows'
+			ng-class = "[cell.cellClass, cell.textClass]"
+			ng-repeat = "cell in column" 
+			sglclick="reveal(cell)" 
+			ng-dblClick="doubleClick(cell)"
+			rightclick = "rightClick(cell)">
+				<div class = 'sudoku hack' ng-show = '!game.sweeper' >
+					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess' class = 'hackreveal'>
+						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
+						<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
 					</div>
 				</div>
-				<div ng-show = "cell.flagged" class = 'flag'><span class="glyphicon glyphicon-flag"></span></div>
-			</div>
-		</div>
 
+				<div class = 'sweeper' ng-show = 'game.sweeper'>
+					<div ng-show = "cell.reveal || cell.flagged">
+						{{cell.appearance}}
+						<div ng-show = 'cell.mine && !cell.flagged'>
+							<span class="glyphicon glyphicon-certificate"></span>
+						</div>
+					</div>
+					<div ng-show = "cell.flagged" class = 'flag'><span class="glyphicon glyphicon-flag"></span></div>
+				</div>
+			</div>
+
+		</div>
 	</div>
-</div>
