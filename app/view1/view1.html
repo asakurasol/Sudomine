@@ -1,34 +1,11 @@
 <div class = 'content'>
 	<div id = "bar">
 	<h1>sudomine</h1>
-	<h4>minesweepr + sudoku</h4>
-		<div class = 'gameStatus row'>
-			<div class = 'column' ng-click = "newGame()">
-					<div class = 'rows'>
-							<h4>{{game.status}}</h4>
-					</div>
+	<span><h4>minesweepr + sudoku</h4></span>
+		<div class = 'gameStatus'>
+			<div class = 'restart-button' ng-click = "newGame()">
+				<h4><( {{game.status}} )> </h4>
 			</div>
-
-			<div class = 'column'>
-				<div class = 'rows'>
-					<h4>{{game.flags}}</h4>
-				</div>
-			</div>
-
-			<div class = 'column' ng-click='switch()'>
-				<div class = 'rows hack'>
-					<span class="glyphicon glyphicon-th-large"></span>
-				</div>
-			</div>
-
-			<div class = 'column' 
-			ng-repeat = "life in game.lives"
-			ng-show = "!game.sweeper">
-				<div class ='rows hack'>
-					<span class="glyphicon glyphicon-heart"></span>
-				</div>
-			</div>
-
 		</div>
 
 		<div class = "row controls" ng-show = '!game.sweeper'>
@@ -42,6 +19,23 @@
 
 </div>
 		
+	<div class = "flags">
+		<h4>{{game.flags}}</h4>
+	</div>
+
+	<div class = 'column' ng-click='switch()'>
+		<div class = 'rows hack'>
+			<span class="glyphicon glyphicon-th-large"></span>
+		</div>
+	</div>
+
+	<div class = 'hearts' 
+	ng-show = "!game.sweeper">
+		<div ng-repeat = "life in game.lives">
+			<span class="glyphicon glyphicon-heart"></span>
+		</div>
+	</div>
+
 	<div id = "game">
 
 		<div class = "column" ng-repeat = "column in game.board">
