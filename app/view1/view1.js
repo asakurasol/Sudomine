@@ -414,7 +414,7 @@ Game.prototype.reveal = function(cell){
 Game.prototype.firstClick = function(cell){
 	var left;
 	var self = this;
-
+	console.log(cell);
 	var refresh = function(){
 		var cells = _.flatten(self.board);
 		_.each(cells, function(cell){
@@ -429,6 +429,9 @@ Game.prototype.firstClick = function(cell){
 	var moveMine = function(cell){
 		console.log("moved a mine");
 		cell.mine = false;
+		console.log(cell.nextTo);
+		console.log(cell.number);
+		console.log(cell.position);
 		self.placeMine(cell.nextTo);
 	}
 
@@ -478,6 +481,7 @@ Game.prototype.firstClick = function(cell){
 //return true if mine is placed, return false if not
 Game.prototype.placeMine = function(array){
 	var self = this;
+	console.log(array);
 	var rand = function(){
 		return Math.floor(Math.random()*81);
 	}
@@ -504,7 +508,7 @@ Game.prototype.revealTarget = function(cell){
 Game.prototype.flag = function(cell){
 	var self = this;
 	var ele = self.find(cell);
-	if(ele.reveal || self.flags <= 0){
+	if(ele.reveal || (self.flags <= 0 && !ele.flagged)){
 	}
 	else if (ele.flagged){
 		ele.flagged = false;

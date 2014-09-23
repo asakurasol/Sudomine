@@ -51,8 +51,8 @@
 						<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
 					</div>
 				</div>
-
 				<div class = 'sweeper' ng-show = 'game.sweeper'>
+
 					<div ng-show = "cell.reveal || cell.flagged">
 						{{cell.appearance}}
 						<div ng-show = 'cell.mine && !cell.flagged'>
