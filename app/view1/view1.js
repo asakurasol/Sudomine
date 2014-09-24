@@ -278,12 +278,24 @@ Game.prototype.updateProps = function(array, size){
 	}
 
 	var assignSudokuClass = function(i){
+		var result;
 		if(i>=27 && i <54){
-			return "sudokuLight"
+			result = "sudokuLight"
 		}
 		else{
-			return "sudokuDark"
-		}
+			result = "sudokuDark"
+		};
+
+		if((i-3)%9 == 0 || (i-4)%9 == 0 || (i-5)%9 == 0){
+			if(result =="sudokuLight"){
+				result = "sudokuDark"
+			}
+			else {
+				result = "sudokuLight"
+			}
+		};
+
+		return result;
 	}
 
 	_.each(array, function(cell){
