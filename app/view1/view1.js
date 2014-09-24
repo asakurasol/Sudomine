@@ -622,7 +622,7 @@ Game.prototype.setValue = function(cell,value){
 		else if(cell.mine && cell.flagged){
 		}
 		else{
-			this.revealTarget(cell.number)
+			this.reveal(cell.number)
 		}
 	}
 	else{
