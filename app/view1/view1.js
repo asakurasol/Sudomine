@@ -426,13 +426,13 @@ Game.prototype.firstClick = function(cell){
 		})
 	};
 
-	var moveMine = function(cell){
+	var moveMine = function(cell, nextTo){
 		console.log("moved a mine");
 		cell.mine = false;
 		console.log(cell.nextTo);
 		console.log(cell.number);
 		console.log(cell.position);
-		self.placeMine(cell.nextTo);
+		self.placeMine(nextTo);
 	}
 
 	console.log('first click');
@@ -451,22 +451,22 @@ Game.prototype.firstClick = function(cell){
 	else if(!cell.mine && cell.sensor !== 0){
 		console.log('not mine, but sensor');
 		_.each(cell.nextTo, function(n){
-			var cell = self.find(n);
-			if(cell.mine){
-				moveMine(cell);
+			var neighbor = self.find(n);
+			if(neighbor.mine){
+				moveMine(neighbor, cell.nextTo);
 			}
-		})
+		});
 		refresh();
 	}
 	else if(cell.mine && cell.sensor !== 0){
 		console.log('mine and sensor')
 		moveMine(cell);
 		_.each(cell.nextTo, function(n){
-			var cell = self.find(n);
-			if(cell.mine){
-				moveMine(cell);
+			var neighbor = self.find(n);
+			if(neighbor.mine){
+				moveMine(neighbor, cell.nextTo);
 			}
-		})
+		});
 		refresh();
 	}
 	else if(cell.mine){
