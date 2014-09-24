@@ -174,6 +174,7 @@ function Cell(number, sudokuNum){
 	//sudoku mechanics
 	this.sudokuNum = sudokuNum;
 	this.sudokuGuess = '';
+	this.sudokuClass = '';
 }
 
 Cell.prototype.setMine = function(){
@@ -276,8 +277,18 @@ Game.prototype.updateProps = function(array, size){
 		}
 	}
 
+	var assignSudokuClass = function(i){
+		if(i>=27 && i <54){
+			return "sudokuLight"
+		}
+		else{
+			return "sudokuDark"
+		}
+	}
+
 	_.each(array, function(cell){
 		cell.position = assignPosition(cell.number, size);
+		cell.sudokuClass = assignSudokuClass(cell.number);
 		cell.nextTo = self.updateNextTo(cell.position, cell.number, size);
 		cell.sensor = self.updateSensor(cell.nextTo, array);
 		if(!cell.mine) {

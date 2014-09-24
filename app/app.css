@@ -106,10 +106,10 @@ body {
     border-radius: 5px;
     border-color: #eeeeee;
     background-color: #cccccc;
-    line-height: 50px;
+    line-height: 60px;
     vertical-align: middle;
     font-family: 'Nunito', sans-serif;
-    font-size: 1.3em;
+    font-size: 1.8em;
     font-weight: bold;
     cursor: pointer;
       -moz-user-select: none;
@@ -181,4 +181,13 @@ body {
   margin-left: 0px;
   margin-bottom: 10px;
 
+}
+
+.sudokuLight{
+  color: #8f7a66;
+}
+
+
+.sudokuDark{
+  color: #666666;
 }

@@ -45,7 +45,7 @@
 			sglclick="reveal(cell)" 
 			ng-dblClick="doubleClick(cell)"
 			rightclick = "rightClick(cell)">
-				<div class = 'sudoku hack' ng-show = '!game.sweeper' >
+				<div class = 'sudoku hack' ng-class = "cell.sudokuClass" ng-show = '!game.sweeper' >
 					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess' class = 'hackreveal'>
 						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
 						<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
