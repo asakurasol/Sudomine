@@ -8,24 +8,24 @@
 			</div>
 		</div>
 
-		<div class = "row controls" ng-show = '!game.sweeper'>
-			<div class = 'column' 
-			ng-repeat = "control in game.controls"
-			ng-click = "getValue(control)"
-			>
-				<div class = 'rows hack'>{{control}}</div>
-			</div>
-		</div>
-
 </div>
 		
 	<div class = "flags">
-		<h4>{{game.flags}}</h4>
+		<h4><span class="glyphicon glyphicon-flag"></span> {{game.flags}}</h4>
 	</div>
 
 	<div class = 'column' ng-click='switch()'>
-		<div class = 'rows hack'>
+		<div class = 'hearts'>
 			<span class="glyphicon glyphicon-th-large"></span>
+		</div>
+	</div>
+
+	<div class = "row controls" ng-show = '!game.sweeper'>
+		<div class = 'flags' 
+		ng-repeat = "control in game.controls"
+		ng-click = "getValue(control)"
+		>
+			<div>{{control}}</div>
 		</div>
 	</div>
 

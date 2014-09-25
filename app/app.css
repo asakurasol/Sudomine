@@ -20,20 +20,6 @@ body {
   /*background-color: #e5e5e5;*/
 }
 
-.restart-button {
-  width: 20%;
-  display: block;
-  background: #8f7a66;
-  border-radius: 3px;
-  padding: 0 20px;
-  text-decoration: none;
-  color: #f9f6f2;
-  height: 40px;
-  line-height: 42px;
-  cursor: pointer;
-  display: block;
-  text-align: center;}
-
 #game{
   padding-top:70px;
   width: 100%;
@@ -45,10 +31,10 @@ body {
 
 .restart-button {
   width: 30%;
+  margin: auto;
   display: block;
   background: #8f7a66;
   border-radius: 3px;
-  padding: 0 20px;
   text-decoration: none;
   color: #f9f6f2;
   height: 40px;
@@ -59,7 +45,6 @@ body {
   float: left; }
 
 .flags {
-  width: 10%;
   display: block;
   border-radius: 3px;
   padding: 0 20px;
@@ -67,7 +52,9 @@ body {
   background: #bbada0;
   color: #eeeeee;
   height: 40px;
-  line-height: 42px;
+  font-size: 1.5em;
+  line-height: 40px;
+  vertical-align: middle;
   display: block;
   text-align: center;
   float: left; }
