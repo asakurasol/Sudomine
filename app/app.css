@@ -32,12 +32,14 @@ body {
 .restart-button {
   margin: auto;
   width:25%;
-  padding-top:1px;
+  padding:;
   display: block;
   background: #8f7a66;
   border-radius: 3px;
+  border: 5px solid;
+  border-color: #A59585 #726252 #726252 #A59585;
   color: #f9f6f2;
-  height: 40px;
+  height: 50px;
   line-height: 40px;
   vertical-align: center;
   cursor: pointer;
