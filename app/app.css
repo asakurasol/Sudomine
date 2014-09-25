@@ -21,7 +21,7 @@ body {
 }
 
 #game{
-  padding-top:70px;
+  padding-top:60px;
   width: 100%;
   height: 670px;
   text-align: center;
@@ -30,24 +30,23 @@ body {
 }
 
 .restart-button {
-  width: 30%;
   margin: auto;
+  width:25%;
+  padding-top:1px;
   display: block;
   background: #8f7a66;
   border-radius: 3px;
-  text-decoration: none;
   color: #f9f6f2;
   height: 40px;
-  line-height: 42px;
+  line-height: 40px;
+  vertical-align: center;
   cursor: pointer;
   display: block;
-  text-align: center;
-  float: left; }
+  text-align: center;}
 
-.flags {
+.controls {
   display: block;
   border-radius: 3px;
-  padding: 0 20px;
   text-decoration: none;
   background: #bbada0;
   color: #eeeeee;
@@ -57,33 +56,34 @@ body {
   vertical-align: middle;
   display: block;
   text-align: center;
-  float: left; }
-
-.hearts {
-  width: 20%;
-  display: block;
-  border-radius: 3px;
-  margin-left: 20px;
-  padding: 0 20px;
-  text-decoration: none;
-  background: #bbada0;
-  color: #eeeeee;
-  height: 40px;
-  line-height: 42px;
-  display: block;
-  text-align: center;
-  float: left; }
-
-.hearts div {
-  float:left;
+  margin-left: 3px;
+  cursor: pointer;
 }
 
+.flags.controls {
+  width: 15%;
+  float: left;
+}
+
+.flags span{
+  color:red;
+}
+.switch {
+  width: 15%;
+  float:right;
+  color:yellow;
+}
+
+.numbers{
+  width: 7%;
+  float:left;
+  color:yellow;
+}
 
 .column{
    float: left;
    width: 11.1%;
    height: 100%;
-
 }
 
 .rows{
@@ -139,35 +139,6 @@ body {
 
 .sweeper .flag{
   color:red;
-}
-
-.gameStatus {
-  margin-bottom: 80px;
-}
-
-/*
-#game .hack{
-  color : #62B262;
-  background-color: #4C4C4C;
-  border: 2px solid;
-  border-radius: 0px;
-  border-color: #62B262;
-  width: 100%;
-  height: 100%;
-}
-
-#game .hack .hackreveal{
-  color : #62B262;
-  background-color: #414141;
-  border-color: #62B262;
-  width: 100%;
-  height: 100%;
-}*/
-
-.controls {
-  margin-left: 0px;
-  margin-bottom: 10px;
-
 }
 
 .sudokuLight{

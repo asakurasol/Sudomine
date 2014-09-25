@@ -1,38 +1,29 @@
 <div class = 'content'>
 	<div id = "bar">
-	<h1>sudomine</h1>
-	<span><h4>minesweepr + sudoku</h4></span>
+
 		<div class = 'gameStatus'>
 			<div class = 'restart-button' ng-click = "newGame()">
-				<h4><( {{game.status}} )> </h4>
+				<h4 ng-show = 'game.sweeper'><span class="glyphicon glyphicon-flag"></span> <( {{game.status}} <) </h4>
+				<h4 ng-show = '!game.sweeper'>(> {{game.status}} )> <span class="glyphicon glyphicon-star"></h4>
 			</div>
 		</div>
 
 </div>
 		
-	<div class = "flags">
-		<h4><span class="glyphicon glyphicon-flag"></span> {{game.flags}}</h4>
+	<div class = "flags controls" ng-click='switch()'>
+		<h4>{{game.flags}} x <span class="glyphicon glyphicon-flag"></span></h4>
 	</div>
 
-	<div class = 'column' ng-click='switch()'>
-		<div class = 'hearts'>
-			<span class="glyphicon glyphicon-th-large"></span>
-		</div>
+	<div class = 'controls switch' ng-click='switch()'>
+		<span ng-repeat = "life in game.lives" class="glyphicon glyphicon-star"></span>
 	</div>
 
-	<div class = "row controls" ng-show = '!game.sweeper'>
-		<div class = 'flags' 
+	<div ng-show = '!game.sweeper'>
+		<div class = 'controls numbers' 
 		ng-repeat = "control in game.controls"
 		ng-click = "getValue(control)"
 		>
 			<div>{{control}}</div>
-		</div>
-	</div>
-
-	<div class = 'hearts' 
-	ng-show = "!game.sweeper">
-		<div ng-repeat = "life in game.lives">
-			<span class="glyphicon glyphicon-heart"></span>
 		</div>
 	</div>
 
