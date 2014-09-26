@@ -656,7 +656,11 @@ angular.module('myApp.view1', ['ngRoute'])
 		}
 		else{
 			//there is an error here
-			$scope.game.setValue(cell, $scope.cursorValue);
+			if(Boolean($scope.cursorValue))
+				{
+					$scope.game.setValue(cell, $scope.cursorValue);
+				}
+
 			$scope.cursorValue = '';
 		}
 		$scope.game.checkForWin();
