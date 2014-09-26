@@ -4,18 +4,37 @@ body {
   text-align: center;
   display: block;
   background-color: #faf8ef !important;
-  margin: 30px !important;
 }
 
 #desc{
   width:100%;
   clear: both;
+  height:90px;
+  color: #726252;
+  border-bottom: 2px solid gray;
+  margin-bottom: 30px;
 }
 
 #desc h1{
-  clear:right;
   display:block;
   float: left;
+  clear: right;
+  font-size: 60px;
+  font-weight: bolder;
+}
+
+#desc span h1 {
+  color: #FF0000;
+  font-weight: normal !important;
+}
+
+#desc p{
+  float:left;
+  padding-top: 54px;
+  font-size: 20px;
+  padding-left: 20px;
+  vertical-align: bottom;
+  font-weight: bolder;
 }
 
 .content{
@@ -67,6 +86,10 @@ body {
 
 .gameBG .right{
   border-right: solid 3px gray;
+}
+
+.pullup {
+  margin-top:45px !important;
 }
 
 .tweak{
@@ -218,4 +241,8 @@ body {
 
 .sudokuDark{
   color: #726252;
+}
+
+#howto {
+    border-top: 2px solid gray;
 }

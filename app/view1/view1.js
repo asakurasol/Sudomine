@@ -224,6 +224,7 @@ function Game(size,mines){
 	this.first = _.once(self.firstClick);
 	this.controls = [1,2,3,4,5,6,7,8,9];
 	this.lives = [1,2,3];
+	this.pullup = 'pullup';
 } 
 
 Game.prototype.generateMines = function(boardsize, mines){
@@ -687,9 +688,11 @@ angular.module('myApp.view1', ['ngRoute'])
 	$scope.switch = function(){
 		if($scope.game.sweeper){
 			$scope.game.sweeper = false;
+			$scope.game.pullup = '';
 		}
 		else{
-			$scope.game.sweeper = true;			
+			$scope.game.sweeper = true;		
+			$scope.game.pullup = 'pullup';	
 		}
 	}
 

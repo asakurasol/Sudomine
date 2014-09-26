@@ -1,15 +1,19 @@
 <div class = 'content'>
-	<div id = "bar">
+	<div id = 'desc'>
+		<h1>sudo</h1>
+		<span><h1>mine</h1></span>
+		<p>
+		<span class="glyphicon glyphicon-flag"></span>
+		 minesweeper + sudoku 
+		<span class="glyphicon glyphicon-star"></span></p>
+	</div>
 
-		<div id = 'desc'>
-			<h1>sudomine</h1>
-			<p>minesweeper + sudoku</p>
-		</div>
+	<div id = "bar">
 
 		<div class = 'gameStatus'>
 			<div class = 'restart-button' ng-click = "newGame()">
 				<h4 ng-show = 'game.sweeper'><span class="glyphicon glyphicon-flag"></span> <( {{game.status}} <) </h4>
-				<h4 ng-show = '!game.sweeper'>(> {{game.status}} )> <span class="glyphicon glyphicon-star"></h4>
+				<h4 ng-show = '!game.sweeper'>(> {{game.status}} )> <span class="glyphicon glyphicon-star"></span></h4>
 			</div>
 		</div>
 
@@ -36,7 +40,7 @@
 		</div>
 	</div>
 
-	<div id = "game">
+	<div id = "game" ng-class = 'game.pullup'>
 		<div class = "column" ng-repeat = "column in game.board">
 			<div class = 'rows'
 			ng-class = "[cell.cellClass, cell.textClass]"
