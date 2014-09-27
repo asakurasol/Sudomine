@@ -67,7 +67,7 @@ body {
   height: 903px;
   text-align: center;
   border-radius: 5px;
-  background-color: transparent;
+  background-color: black;
   border: 3px solid #999999;
   border-bottom: 4px solid #999999;
   margin-top: 87px;
@@ -75,18 +75,18 @@ body {
 }
 
 .gameBG div {
-  width:33.6%;
-  height:200px;
+  width:16.8%;
+  height:150px;
   float:left;
 }
 
 .gameBG .botright{
-  border-bottom: solid 3px gray;
-  border-right: solid 3px gray;
+  border-bottom: solid 2px gray;
+  border-right: solid 2px gray;
 }
 
 .gameBG .right{
-  border-right: solid 3px gray;
+  border-right: solid 2px gray;
 }
 
 .pullup {
@@ -94,11 +94,11 @@ body {
 }
 
 .tweak{
-  width:33.5% !important;
+  width:16.7% !important;
 }
 
 .gameBG .bot{
-  width: 33%;
+  width: 16.5%;
   border-bottom: solid 3px gray;
   margin-left:-1px;
 }
@@ -151,7 +151,7 @@ body {
 }
 
 .flags.controls {
-  width: 20%;
+  width: 15%;
   float: left;
 }
 
@@ -160,7 +160,7 @@ body {
 }
 
 .switch {
-  width: 20%;
+  width: 15%;
   float:right;
   color:yellow;
   clear:right;
