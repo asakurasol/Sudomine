@@ -34,6 +34,8 @@
 		<div ng-show = '!game.sweeper'>
 			<div class = 'controls numbers' 
 			ng-repeat = "control in game.controls"
+			drag
+			ng-model = "control"
 			ng-click = "getValue(control)"
 			>
 				<div>{{control}}</div>
@@ -41,14 +43,15 @@
 		</div>
 	</div>
 
-	<div id = "game" ng-class = 'game.pullup'>
+	<div class = "game" ng-class = 'game.pullup'>
 		<div class = "column" ng-repeat = "column in game.board">
 			<div class = 'rows'
 			ng-class = "[cell.cellClass, cell.textClass]"
 			ng-repeat = "cell in column" 
 			sglclick="reveal(cell)" 
 			ng-dblClick="doubleClick(cell)"
-			rightclick = "rightClick(cell)">
+			rightclick = "rightClick(cell)"
+			drop = "dropFunctions.{{cell.number}}">
 				<div class = 'sudoku hack' ng-class = "cell.sudokuClass" ng-show = '!game.sweeper' >
 					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess' class = 'hackreveal'>
 						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
@@ -94,11 +97,12 @@
 <div id = 'howto'>
 	<h3><span class="glyphicon glyphicon-question-sign"></span></h3>
 	<div>
+		<p><b>sudomine</b> is a mix of minesweeper and sudoku. The goal of the game is similar to the standard minesweeper game, but the player will have the option to play sudoku on the same board. The sudoku numbers are revealed by the minesweeper "sensors", and minesweeper cells can be revealed if player inputs the correct sudoku answer.</p>
 		<h5>
 		<ul>
-			<li>the o_o button to start new game</li>
-			<li>Flag and the star button switches between Minesweeper and Sudoku mode</li>
-			<li></li>
+			<li class = "li">the o_o button to start new game</li>
+			<li class = "li">Flag and the star button switches between Minesweeper and Sudoku mode</li>
+			<li class = "li"></li>
 		</ul>
 	</h5>
 

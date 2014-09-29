@@ -456,7 +456,9 @@ Game.prototype.firstClick = function(cell){
 		console.log(cell.nextTo);
 		console.log(cell.number);
 		console.log(cell.position);
-		self.placeMine(nextTo);
+		var array = nextTo;
+		array.push(cell.number);
+		self.placeMine(array);
 	}
 
 	console.log('first click');
@@ -634,7 +636,7 @@ Game.prototype.setValue = function(cell,value){
 	};
 }
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {
@@ -646,9 +648,11 @@ angular.module('myApp.view1', ['ngRoute'])
 .controller('View1Ctrl', ['$scope', function($scope) {
 	$scope.game = new Game(9,15);
 	$scope.cursorValue = '';
+	window.game = $scope.game;
 
 	$scope.newGame = function(){
-		$scope.game = new Game(9,15);	
+		$scope.game = new Game(9,15);
+		window.game = $scope.game;	
 	};
 	$scope.reveal = function(cell) {
 		if($scope.game.sweeper){
@@ -700,6 +704,13 @@ angular.module('myApp.view1', ['ngRoute'])
 		$scope.cursorValue = value;
 		console.log($scope.cursorValue);
 	}
+
+	$scope.dropFunctions = [];
+
+	for(var i = 0; i < 81; i++){
+		$scope.dropFunctions[i] = new Function('ele', "console.log(this); console.log(game);var i = " + i + ";game.setValue(game.find(i), ele);");
+	}
+	
 }])
 
 .directive('sglclick', ['$parse', function($parse) {

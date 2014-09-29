@@ -46,7 +46,7 @@
   /*background-color: #e5e5e5;*/
 }
 
-#game{
+.game{
   width: 600px;
   height: 600px;
   text-align: center;
@@ -250,9 +250,69 @@
 
 #howto p {
   text-align:left;
+  text-size: 1.4em;
 }
 
 #howto ul {
   text-align:center;
 }
 
+
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}
+
+/*
+drop element
+*/
+.drop {
+}
+
+/*
+drag element
+*/
+.drag {
+    cursor: move;
+}
+
+.drag:hover {
+    color:#fff;
+    background-color:#726252;
+    border-color: #A59585 #726252 #726252 #A59585;
+}
+
+.drag.hover {
+    background-color:#726252;
+    border-color: #A59585 #726252 #726252 #A59585;
+}
+
+/*
+element being dragged
+*/
+.drag.dragging {
+    opacity: 0.9;
+}
+
+/*
+class added to all .drop elements while dragging
+*/
+.drop.dropable {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+/*
+ * class added to all .drop elements when a .drag is hovering
+ */
+.drop.dropable.hover {
+    background-color: gray;
+}
