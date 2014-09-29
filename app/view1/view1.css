@@ -41,7 +41,7 @@
   padding: 10px;
   text-align: center;
   border-radius: 5px;
-  margin-bottom: -30px;
+  margin-bottom: -20px;
   color: #FFFFE6 ;
   /*background-color: #e5e5e5;*/
 }
@@ -123,8 +123,6 @@
   border-radius: 3px;
   text-decoration: none;
   background: #bbada0;
-  border:3px solid;
-  border-color: #C9BDB3 #79716B #79716B #C9BDB3;
   color: #FFFFE6;
   height: 45px;
   margin-bottom: 10px;
@@ -148,7 +146,7 @@
 }
 
 .flags.controls {
-  width: 15%;
+  width: 17%;
   float: left;
 }
 
@@ -157,7 +155,7 @@
 }
 
 .switch {
-  width: 15%;
+  width: 17%;
   float:right;
   color: yellow ;
   clear:right;
@@ -281,7 +279,7 @@
 }
 
 #howto ul {
-  width: 90%;
+  width: 95%;
   text-align:left;
 }
 
@@ -352,11 +350,14 @@
   text-align:center;
   vertical-align: middle;
   font-family: 'Nunito', sans-serif;
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight: bolder;
   float: left;
   margin-right: 5px;
-  color: #cd333e; 
+}
+
+#howto .square.red{
+    color: #cd333e; 
 }
 
 [draggable] {
