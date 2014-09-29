@@ -436,9 +436,11 @@ Game.prototype.reveal = function(cell){
 }
 
 Game.prototype.firstClick = function(cell){
-	var left;
 	var self = this;
 	console.log(cell);
+	var forbidden = cell.nextTo;
+	forbidden.push(cell.number);
+
 	var refresh = function(){
 		var cells = _.flatten(self.board);
 		_.each(cells, function(cell){
@@ -450,25 +452,10 @@ Game.prototype.firstClick = function(cell){
 		})
 	};
 
-	var moveMine = function(cell, nextTo){
-		console.log("moved a mine");
+	var moveMine = function(cell, array){
 		cell.mine = false;
-		console.log(cell.nextTo);
-		console.log(cell.number);
-		console.log(cell.position);
-		var array = nextTo;
-		array.push(cell.number);
 		self.placeMine(array);
 	}
-
-	console.log('first click');
-
-	if(cell.number < 40){
-		left = true
-	}
-	else {
-		left = false;
-	};
 
 	if(!cell.mine && cell.sensor === 0){
 		console.log("no movement needed");
@@ -479,7 +466,7 @@ Game.prototype.firstClick = function(cell){
 		_.each(cell.nextTo, function(n){
 			var neighbor = self.find(n);
 			if(neighbor.mine){
-				moveMine(neighbor, cell.nextTo);
+				moveMine(neighbor, forbidden);
 			}
 		});
 		refresh();
@@ -490,14 +477,14 @@ Game.prototype.firstClick = function(cell){
 		_.each(cell.nextTo, function(n){
 			var neighbor = self.find(n);
 			if(neighbor.mine){
-				moveMine(neighbor, cell.nextTo);
+				moveMine(neighbor, forbidden);
 			}
 		});
 		refresh();
 	}
 	else if(cell.mine){
 		console.log('just a mine');
-		moveMine(cell);
+		moveMine(cell, forbidden);
 		refresh();
 	}
 }
@@ -508,9 +495,11 @@ Game.prototype.firstClick = function(cell){
 Game.prototype.placeMine = function(array){
 	var self = this;
 	console.log(array);
+
 	var rand = function(){
 		return Math.floor(Math.random()*81);
 	}
+
 	var recurse = function(){
 		var cell = self.find(rand());
 		if(cell.mine || _.contains(array,cell.number)){
@@ -523,6 +512,7 @@ Game.prototype.placeMine = function(array){
 			return cell.number;			
 		}
 	}
+
 	return recurse();
 }
 
@@ -532,17 +522,20 @@ Game.prototype.revealTarget = function(cell){
 };
 
 Game.prototype.flag = function(cell){
+	console.log("this runs");
 	var self = this;
 	var ele = self.find(cell);
 	if(ele.reveal || (self.flags <= 0 && !ele.flagged)){
 	}
 	else if (ele.flagged){
 		ele.flagged = false;
+		ele.cellClass = '';
 		self.flags++;
 		ele.appearance = self.updateAppearance(ele.mine, ele.sensor);
 	}
 	else{
 		ele.flagged = true;
+		ele.cellClass = 'flagged';
 		self.flags--;
 		ele.appearance = '';
 	}
@@ -683,6 +676,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 		if($scope.game.sweeper){
 			console.log('right clicked');
 			$scope.game.flag(cell.number);
+			console.log($scope.game.find(cell.number));
 			$scope.flags = $scope.game.flags;
 		}
 		else {

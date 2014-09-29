@@ -11,7 +11,7 @@
 
 	<div id = "bar">
 
-		<div class = 'gameStatus' ng-click = "newGame()">
+		<div class = 'gameStatus' ng-click = "switch()">
 			<div class = 'restart-button'>
 				<h4 ng-show = 'game.sweeper'><span class="glyphicon glyphicon-flag"></span> <( {{game.status}} <) </h4>
 				<h4 ng-show = '!game.sweeper'>(> {{game.status}} )> <span class="glyphicon glyphicon-star"></span></h4>
@@ -21,11 +21,11 @@
 	</div>
 		
 	<div class = 'switchCtrl'>
-		<div class = "flags controls" ng-click='switch()'>
+		<div class = "flags controls">
 			<h4>{{game.flags}} x <span class="glyphicon glyphicon-flag"></span></h4>
 		</div>
 
-		<div class = 'controls switch' ng-click='switch()'>
+		<div class = 'controls switch'>
 			<span ng-repeat = "life in game.lives" class="glyphicon glyphicon-star"></span>
 		</div>
 	</div>
@@ -48,12 +48,12 @@
 			<div class = 'rows'
 			ng-class = "[cell.cellClass, cell.textClass]"
 			ng-repeat = "cell in column" 
-			sglclick="reveal(cell)" 
-			ng-dblClick="doubleClick(cell)"
+			sglclick = "reveal(cell)" 
+			ng-dblClick = "doubleClick(cell)"
 			rightclick = "rightClick(cell)"
 			drop = "dropFunctions.{{cell.number}}">
-				<div class = 'sudoku hack' ng-class = "cell.sudokuClass" ng-show = '!game.sweeper' >
-					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess' class = 'hackreveal'>
+				<div class = 'sudoku' ng-class = "cell.sudokuClass" ng-show = '!game.sweeper' >
+					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess'>
 						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
 						<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
 					</div>
@@ -94,17 +94,22 @@
 	</div>
 </div>
 
+<div class = "options">
+	<span class="glyphicon glyphicon-repeat restart" ng-click = "newGame()"></span>
+	<span class="glyphicon glyphicon-question-sign instruction"></span>
+</div>
+
 <div id = 'howto'>
-	<h3><span class="glyphicon glyphicon-question-sign"></span></h3>
 	<div>
-		<p><b>sudomine</b> is a mix of minesweeper and sudoku. The goal of the game is similar to the standard minesweeper game, but the player will have the option to play sudoku on the same board. The sudoku numbers are revealed by the minesweeper "sensors", and minesweeper cells can be revealed if player inputs the correct sudoku answer.</p>
-		<h5>
-		<ul>
-			<li class = "li">the o_o button to start new game</li>
-			<li class = "li">Flag and the star button switches between Minesweeper and Sudoku mode</li>
-			<li class = "li"></li>
+		<p><b>Sudomine</b> is a logic puzzle game based on minesweeper and sudoku. The goal of sudomine is to reveal all mine-free squares on the board (same as a standard minesweeper game), but players have the extra option of playing sudoku on the same board.</p>
+		<p>The sudoku numbers are revealed on the same spots as the minesweeper's sensors (colored numbers). Additionally, when the players input the correct solution to the sudoku puzzle, the corresponding spot on the minesweeper side is revealed.</p>
+		<ul class = 'list-group'>
+			<li class = "list-group-item"><span class = "restart-button-sml"> <(o_o)> </span><p>- switches between minesweeper and sudoku mode</p></li>
+			<li class = "list-group-item"><span class = "controls-sml-flag"># x <span class = "glyphicon glyphicon-flag"></span></span><p>- number of flags remaining, right click on a square to flag</p></li>
+			<li class = "list-group-item"><span class = "controls-sml-star"><span class = "glyphicon glyphicon-star"></span><span class = "glyphicon glyphicon-star"></span></span><p>- number of lives remaining for sudoku, game over if reaches 0</p></li>
+			<li class = "list-group-item"><span class = "controls-sml-star">1 - 9</span><p>- drag a number to empty squares to solve sudoku puzzle</p></li>
+			<li class = "list-group-item"><span class = "square">3</span><p>- number in a square shows number of mines around it</p></li>
 		</ul>
-	</h5>
 
 	</div>
 </div>
