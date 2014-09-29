@@ -1,11 +1,5 @@
 /* app css stylesheet */
 
-body {
-  text-align: center;
-  display: block;
-  background-color: #FFFFE6 !important;
-}
-
 #desc{
   width:100%;
   clear: both;
@@ -67,7 +61,7 @@ body {
   height: 903px;
   text-align: center;
   border-radius: 5px;
-  background-color: black;
+  background-color: transparent;
   border: 3px solid #999999;
   border-bottom: 4px solid #999999;
   margin-top: 87px;

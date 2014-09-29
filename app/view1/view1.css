@@ -1,11 +1,5 @@
 /* app css stylesheet */
 
-body {
-  text-align: center;
-  display: block;
-  background-color: #FFFFE6 !important;
-}
-
 #desc{
   width:100%;
   clear: both;
@@ -62,18 +56,22 @@ body {
   margin-bottom: 30px;
 }
 
-.gameBG{
+.gameBGContainer{
   width: 602px;
   height: 603px;
   text-align: center;
-  border-radius: 5px;
-  background-color: transparent;
-  border: 3px solid #999999;
-  border-bottom: 4px solid #999999;
   margin-top: 87px;
   margin-left: 0px;
 }
 
+.gameBG{
+  width:100%;
+  height:100%;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 3px solid #999999;
+  border-bottom: 4px solid #999999;
+}
 .gameBG div {
   width:33.6%;
   height:200px;
@@ -246,4 +244,15 @@ body {
 
 #howto {
     border-top: 2px solid gray;
+    color:#726252;
 }
+
+
+#howto p {
+  text-align:left;
+}
+
+#howto ul {
+  text-align:center;
+}
+
