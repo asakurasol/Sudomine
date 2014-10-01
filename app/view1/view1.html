@@ -11,11 +11,15 @@
 
 	<div id = "bar">
 
-		<div class = 'gameStatus' ng-click = "switch()">
-			<div class = 'restart-button'>
+		<div class = 'gameStatus'>
+		<div class="btn btn-danger btn-lg" ng-click = "newGame()">
+			<span class="glyphicon glyphicon-repeat"></span></div>	
+			<div class = 'btn btn-danger btn-lg' ng-click = "switch()">
 				<h4 ng-show = 'game.sweeper'><span class="glyphicon glyphicon-flag"></span> <( {{game.status}} <) </h4>
 				<h4 ng-show = '!game.sweeper'>(> {{game.status}} )> <span class="glyphicon glyphicon-star"></span></h4>
 			</div>
+		<div class="btn btn-danger btn-lg" ng-click = "showInstruction()">
+			<span class="glyphicon glyphicon-question-sign"></span></div>	
 		</div>
 
 	</div>
@@ -94,12 +98,7 @@
 	</div>
 </div>
 
-<div class = "options">
-	<span class="glyphicon glyphicon-repeat restart" ng-click = "newGame()"></span>
-	<span class="glyphicon glyphicon-question-sign instruction"></span>
-</div>
-
-<div id = 'howto'>
+<div id = 'howto' class = 'well' ng-show = 'showHowto' ng-class = 'game.pushup'>
 	<div>
 		<p><b>Sudomine</b> is a logic puzzle game based on minesweeper and sudoku. The goal of sudomine is to reveal all mine-free squares on the board (same as a standard minesweeper game), but players have the extra option of solving the game by playing sudoku on the same board.</p>
 		<p>When the players input a correct solution to the sudoku puzzle, the corresponding spot on the minesweeper side is revealed. The sudoku numbers are revealed on the same spots as the minesweeper's sensors (colored numbers).</p>
@@ -114,4 +113,8 @@
 		</ul>
 
 	</div>
+</div>
+
+<div class = "footer">
+	Made for your enjoyment by <a href = "www.twitter.com">@asakurasol</a> <span class="glyphicon glyphicon-github"></span>
 </div>

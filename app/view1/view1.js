@@ -225,6 +225,7 @@ function Game(size,mines){
 	this.controls = [1,2,3,4,5,6,7,8,9];
 	this.lives = [1,2,3];
 	this.pullup = 'pullup';
+	this.pushup = 'pushup';
 } 
 
 Game.prototype.generateMines = function(boardsize, mines){
@@ -641,6 +642,8 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 .controller('View1Ctrl', ['$scope', function($scope) {
 	$scope.game = new Game(9,15);
 	$scope.cursorValue = '';
+	$scope.showHowto = false;
+
 	window.game = $scope.game;
 
 	$scope.newGame = function(){
@@ -687,16 +690,31 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 		if($scope.game.sweeper){
 			$scope.game.sweeper = false;
 			$scope.game.pullup = '';
+			$scope.game.pushup = '';	
 		}
 		else{
 			$scope.game.sweeper = true;		
 			$scope.game.pullup = 'pullup';	
+			$scope.game.pushup = 'pushup';	
 		}
 	}
 
 	$scope.getValue = function(value){
 		$scope.cursorValue = value;
 		console.log($scope.cursorValue);
+	}
+
+	$scope.showInstruction = function(){
+		console.log("ran");
+		if($scope.showHowto){
+			$scope.showHowto = false;
+		}
+		else{
+			$scope.showHowto = true;
+			window.setTimeout(function(){
+				window.scrollBy(0,700);
+			}, 100);
+		}
 	}
 
 	$scope.dropFunctions = [];

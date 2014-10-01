@@ -46,6 +46,16 @@
   /*background-color: #e5e5e5;*/
 }
 
+.gameStatus .btn-danger{
+  background: #8f7a66;
+  border-radius: 3px;
+  border: 4px solid;
+  border-color: #A59585 #726252 #726252 #A59585;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
 .game{
   width: 600px;
   height: 600px;
@@ -62,6 +72,7 @@
   text-align: center;
   margin-top: 87px;
   margin-left: 0px;
+  margin-bottom:15px;
 }
 
 .gameBG{
@@ -91,6 +102,10 @@
   margin-top:45px !important;
 }
 
+.pushup{
+  margin-top: -45px !important;
+}
+
 .tweak{
   width:33.5% !important;
 }
@@ -100,23 +115,6 @@
   border-bottom: solid 3px gray;
   margin-left:-1px;
 }
-
-.restart-button {
-  margin: auto;
-  width:25%;
-  padding:;
-  display: block;
-  background: #8f7a66;
-  border-radius: 3px;
-  border: 4px solid;
-  border-color: #A59585 #726252 #726252 #A59585;
-  color: #FFFFE6 ;
-  height: 50px;
-  line-height: 40px;
-  vertical-align: center;
-  cursor: pointer;
-  display: block;
-  text-align: center;}
 
 .controls {
   display: block;
@@ -247,35 +245,24 @@
   color: #726252;
 }
 
-.options{
-  font-size: 40px;
-  width:40%;
-  margin:auto;
-  height:60px;
-  color:#726252;
-  cursor:pointer;
-}
-
-.options .restart{
-  float:left;
-  cursor:pointer;
-}
-
-.options .instruction{
-  float:right;
-  cursor:pointer;
 }
 #howto {
     color:#726252;
-    width:95%;
+    padding:20px;
+    padding-bottom:0px;
     margin:auto;
+    margin-bottom:30px;
+    background: #E6FFF3;
+    border: 3px gray solid;
+    border-radius:10px;
 }
 
 
 #howto p {
   text-align:justify;
-  text-size: 1.4em;
+  font-size: 1.2em;
   text-indent: 50px;
+  color:black;
 }
 
 #howto ul {
@@ -358,6 +345,13 @@
 
 #howto .square.red{
     color: #cd333e; 
+}
+
+.footer{
+  margin-top:20px;
+  margin-bottom:30px;
+  padding:10px;
+  border-top:2px solid gray;
 }
 
 [draggable] {
