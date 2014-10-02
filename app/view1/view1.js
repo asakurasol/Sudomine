@@ -720,7 +720,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 	$scope.dropFunctions = [];
 
 	for(var i = 0; i < 81; i++){
-		$scope.dropFunctions[i] = new Function('ele', "console.log(this); console.log(game);var i = " + i + ";game.setValue(game.find(i), ele);");
+		$scope.dropFunctions[i] = new Function('ele', "console.log(this); console.log(game);var i = " + i + ";game.setValue(game.find(i), ele); game.checkForWin()");
 	}
 	
 }])
