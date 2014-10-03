@@ -45,28 +45,56 @@ if (!Array.prototype.fill) {
 function Sudoku(number){
 
 	//improve on this later to start from a different seed
-	this.seed = [
-		[9,6,7,1,8,4,3,2,5],
-		[3,5,1,9,7,2,4,6,8],
-		[4,2,8,6,5,3,1,9,7],
-		[1,4,5,2,6,8,9,7,3],
-		[8,7,3,4,9,1,6,5,2],
-		[2,9,6,5,3,7,8,4,1],
-		[7,8,4,3,2,9,5,1,6],
-		[5,3,9,7,1,6,2,8,4],
-		[6,1,2,8,4,5,7,3,9],
+	this.seeds = 
+	[
+		[
+			[9,6,7,1,8,4,3,2,5],
+			[3,5,1,9,7,2,4,6,8],
+			[4,2,8,6,5,3,1,9,7],
+			[1,4,5,2,6,8,9,7,3],
+			[8,7,3,4,9,1,6,5,2],
+			[2,9,6,5,3,7,8,4,1],
+			[7,8,4,3,2,9,5,1,6],
+			[5,3,9,7,1,6,2,8,4],
+			[6,1,2,8,4,5,7,3,9]
+		],
+
+		[
+			[8,6,7,3,5,4,9,1,2],
+			[3,9,5,2,1,8,4,7,6],
+			[2,4,1,9,6,7,8,3,5],
+			[1,5,6,4,8,3,2,9,7],
+			[9,3,2,6,7,5,1,4,8],
+			[4,7,8,1,2,9,5,6,3],
+			[7,1,9,8,3,2,6,5,4],
+			[6,2,3,5,4,1,7,8,9],
+			[5,8,4,7,9,6,3,2,1]
+		],
+
+		[
+			[4,8,2,5,3,7,6,9,1],
+			[5,9,1,6,8,4,2,3,7],
+			[7,6,3,1,2,9,4,8,5],
+			[2,1,4,3,5,6,8,7,9],
+			[9,5,8,7,4,1,3,2,6],
+			[6,3,7,8,9,2,5,1,4],
+			[1,7,5,2,6,8,9,4,3],
+			[8,4,6,9,1,3,7,5,2],
+			[3,2,9,4,7,5,1,6,8]
+		]	
 	]
 
 	this.puzzle = this.scramble(number);
 }
 
 Sudoku.prototype.scramble = function(number){
-	var result = this.seed;
+	var rand = Math.floor(Math.random()*3);
+	var result = this.seeds[rand];
 	//swap rows and columns
 	result = this.swapRows(result);
 	result = this.swapColumns(result);
 	//flatten the array matrix
-	result = _.flatten(this.seed);
+	result = _.flatten(result);
 	//swap some more numbers around
 	result = this.swap(result, number);
 	return result;
