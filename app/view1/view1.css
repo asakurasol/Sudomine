@@ -132,6 +132,13 @@
   margin-left: 4px;
 }
 
+.sudokuCtrl .controls.clicked{
+  background: #8f7a66;
+  border-radius: 3px;
+  border: 4px solid;
+  border-color: #A59585 #726252 #726252 #A59585;
+}
+
 .switchCtrl{
   width:100%;
   clear:both;
@@ -163,10 +170,9 @@
   width: 10%;
   float:left;
   color: yellow ;
-  background: #8f7a66;
-  border-radius: 3px;
-  border: 4px solid;
-  border-color: #A59585 #726252 #726252 #A59585;
+  background: #bbada0;
+  border:3px solid;
+  border-color: #C9BDB3 #79716B #79716B #C9BDB3;
 }
 
 .column{
@@ -260,7 +266,7 @@
 
 #howto p {
   text-align:justify;
-  font-size: 1.2em;
+  font-size: 1em;
   text-indent: 50px;
   color:black;
 }
@@ -378,15 +384,17 @@ drag element
 }
 
 .drag:hover {
-  background: #bbada0;
-  border:3px solid;
-  border-color: #C9BDB3 #79716B #79716B #C9BDB3;
+  background: #8f7a66;
+  border-radius: 3px;
+  border: 4px solid;
+  border-color: #A59585 #726252 #726252 #A59585;
 }
 
 .drag.hover {
-  background: #bbada0;
-  border:3px solid;
-  border-color: #C9BDB3 #79716B #79716B #C9BDB3;
+  background: #8f7a66;
+  border-radius: 3px;
+  border: 4px solid;
+  border-color: #A59585 #726252 #726252 #A59585;
 }
 
 /*

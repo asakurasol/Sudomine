@@ -39,10 +39,11 @@
 			<div class = 'controls numbers' 
 			ng-repeat = "control in game.controls"
 			drag
-			ng-model = "control"
-			ng-click = "getValue(control)"
+			ng-model = "control[0]"
+			ng-click = "getValue(control[0])"
+			ng-class = "control[1]"
 			>
-				<div>{{control}}</div>
+				<div>{{control[0]}}</div>
 			</div>
 		</div>
 	</div>
@@ -116,5 +117,5 @@
 </div>
 
 <div class = "footer">
-	Made for your enjoyment by <a href = "www.twitter.com">@asakurasol</a> <span class="glyphicon glyphicon-github"></span>
+	Made for your enjoyment by <a href = "http://www.twitter.com/asakurasol">@asakurasol</a> <span class="glyphicon glyphicon-github"></span>
 </div>

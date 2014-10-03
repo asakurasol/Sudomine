@@ -222,7 +222,7 @@ function Game(size,mines){
 	this.status = 'o_o';
 	this.sweeper = true;
 	this.first = _.once(self.firstClick);
-	this.controls = [1,2,3,4,5,6,7,8,9];
+	this.controls = [[1,''],[2,''],[3,''],[4,''],[5,''],[6,''],[7,''],[8,''],[9,'']];
 	this.lives = [1,2,3];
 	this.pullup = 'pullup';
 	this.pushup = 'pushup';
@@ -630,6 +630,14 @@ Game.prototype.setValue = function(cell,value){
 	};
 }
 
+Game.prototype.resetControl = function(){
+	var self = this;
+	_.each(self.controls, function(control){
+		control[1] = '';
+	});
+}
+
+
 angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -643,8 +651,14 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 	$scope.game = new Game(9,15);
 	$scope.cursorValue = '';
 	$scope.showHowto = false;
+	$scope.globalListener = {};
 
-	window.game = $scope.game;
+	$scope.globalListener.setValue = function(i, ele){
+		$scope.game.setValue($scope.game.find(i),ele);
+		$scope.game.checkForWin();
+	}
+
+	window.globalListener = $scope.globalListener;
 
 	$scope.newGame = function(){
 		$scope.game = new Game(9,15);
@@ -661,7 +675,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 				{
 					$scope.game.setValue(cell, $scope.cursorValue);
 				}
-
+			$scope.game.resetControl();
 			$scope.cursorValue = '';
 		}
 		$scope.game.checkForWin();
@@ -700,8 +714,9 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 	}
 
 	$scope.getValue = function(value){
+		$scope.game.resetControl();
 		$scope.cursorValue = value;
-		console.log($scope.cursorValue);
+		$scope.game.controls[value-1][1] = 'clicked';
 	}
 
 	$scope.showInstruction = function(){
@@ -720,7 +735,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 	$scope.dropFunctions = [];
 
 	for(var i = 0; i < 81; i++){
-		$scope.dropFunctions[i] = new Function('ele', "console.log(this); console.log(game);var i = " + i + ";game.setValue(game.find(i), ele); game.checkForWin()");
+		$scope.dropFunctions[i] = new Function('ele', "var i = " + i + "; globalListener.setValue(i, ele);");
 	}
 	
 }])
