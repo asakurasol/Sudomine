@@ -751,12 +751,15 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
 		console.log("ran");
 		if($scope.showHowto){
 			$scope.showHowto = false;
+			window.setTimeout(function(){
+				window.scrollBy(0,-200);
+			}, 50);
 		}
 		else{
 			$scope.showHowto = true;
 			window.setTimeout(function(){
 				window.scrollBy(0,700);
-			}, 100);
+			}, 50);
 		}
 	}
 
