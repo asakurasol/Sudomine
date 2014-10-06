@@ -762,7 +762,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
         restrict: 'A',
         link: function(scope, element, attr) {
           var fn = $parse(attr['sglclick']);
-          var delay = 200, clicks = 0, timer = null;
+          var delay = 100, clicks = 0, timer = null;
           element.on('click', function (event) {
             clicks++;  //count clicks
             if(clicks === 1) {
