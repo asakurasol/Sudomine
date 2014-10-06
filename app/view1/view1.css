@@ -84,7 +84,7 @@
   border-bottom: 4px solid #999999;
 }
 .gameBG div {
-  width:33.6%;
+  width:199.5px;
   height:200px;
   float:left;
 }
@@ -107,11 +107,11 @@
 }
 
 .tweak{
-  width:33.5% !important;
+  width:200px !important;
 }
 
 .gameBG .bot{
-  width: 33%;
+  width: 197px;
   border-bottom: solid 3px gray;
   margin-left:-1px;
 }
@@ -242,15 +242,6 @@
   color:red;
 }
 
-.sudokuLight{
-  color: #726252;
-}
-
-
-.sudokuDark{
-  color: #726252;
-}
-
 }
 #howto {
     color:#726252;
@@ -342,7 +333,6 @@
   background-color: #cccccc;
   text-align:center;
   vertical-align: middle;
-  font-family: 'Nunito', sans-serif;
   font-size: 1.2em;
   font-weight: bolder;
   float: left;
