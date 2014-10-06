@@ -666,7 +666,7 @@ Game.prototype.resetControl = function(){
 }
 
 
-angular.module('myApp.view1', ['ngRoute', 'dragAndDrop'])
+angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {
