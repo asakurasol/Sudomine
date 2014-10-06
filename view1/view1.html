@@ -53,7 +53,7 @@
 			<div class = 'rows'
 			ng-class = "[cell.cellClass, cell.textClass]"
 			ng-repeat = "cell in column" 
-			sglclick = "reveal(cell)" 
+			ng-click = "reveal(cell)" 
 			ng-dblClick = "doubleClick(cell)"
 			rightclick = "rightClick(cell)"
 			drop = "dropFunctions.{{cell.number}}">
@@ -120,5 +120,5 @@
 </div>
 
 <div class = "footer">
-	Made for your enjoyment by <a href = "http://www.twitter.com/asakurasol">@asakurasol</a> <span class="glyphicon glyphicon-github"></span>
+	Made for your enjoyment by <a href = "http://www.twitter.com/asakurasol">@asakurasol</a>
 </div>
