@@ -211,7 +211,7 @@ Cell.prototype.setMine = function(){
 function Game(size,mines){
 	var self = this;
 	//create the puzzle for sudoku
-	this.sudoku = new Sudoku(5);
+	this.sudoku = new Sudoku(2);
 
 	//generate a cell to fill up the board
 	var cells = [].fill.call({ length: size*size },'');
@@ -756,7 +756,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 	}
 	
 }])
-
+/*
 .directive('sglclick', ['$parse', function($parse) {
     return {
         restrict: 'A',
@@ -780,6 +780,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
         }
     };
 }])
+*/
 
 .directive('rightclick', function($parse) {
     return function(scope, element, attrs) {
