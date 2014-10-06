@@ -85,7 +85,7 @@
   border-bottom: 4px solid #999999;
 }
 .gameBG div {
-  width:182.5px;
+  width:183px;
   height:183px;
   float:left;
 }
@@ -112,7 +112,7 @@
 }
 
 .gameBG .bot{
-  width: 181.5px;
+  width: 181px;
   border-bottom: solid 3px gray;
   margin-left:-1px;
 }
