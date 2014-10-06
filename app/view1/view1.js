@@ -170,7 +170,6 @@ Sudoku.prototype.swap = function(array,n){
 		for(var i = 0; i < array.length; i++)
 			{
 				if (array[i] === num1){
-					console.log("swrapped " + array[i] + " and " + num2)
 					array[i] = num2;
 
 				}
@@ -466,7 +465,6 @@ Game.prototype.reveal = function(cell){
 
 Game.prototype.firstClick = function(cell){
 	var self = this;
-	console.log(cell);
 	var forbidden = cell.nextTo;
 	forbidden.push(cell.number);
 
@@ -487,11 +485,9 @@ Game.prototype.firstClick = function(cell){
 	}
 
 	if(!cell.mine && cell.sensor === 0){
-		console.log("no movement needed");
 		return '';
 	}
 	else if(!cell.mine && cell.sensor !== 0){
-		console.log('not mine, but sensor');
 		_.each(cell.nextTo, function(n){
 			var neighbor = self.find(n);
 			if(neighbor.mine){
@@ -501,7 +497,6 @@ Game.prototype.firstClick = function(cell){
 		refresh();
 	}
 	else if(cell.mine && cell.sensor !== 0){
-		console.log('mine and sensor')
 		moveMine(cell);
 		_.each(cell.nextTo, function(n){
 			var neighbor = self.find(n);
@@ -512,7 +507,6 @@ Game.prototype.firstClick = function(cell){
 		refresh();
 	}
 	else if(cell.mine){
-		console.log('just a mine');
 		moveMine(cell, forbidden);
 		refresh();
 	}
@@ -523,7 +517,6 @@ Game.prototype.firstClick = function(cell){
 //return true if mine is placed, return false if not
 Game.prototype.placeMine = function(array){
 	var self = this;
-	console.log(array);
 
 	var rand = function(){
 		return Math.floor(Math.random()*81);
@@ -537,7 +530,6 @@ Game.prototype.placeMine = function(array){
 		else{
 			cell.mine = true;
 			cell.textClass = '';
-			console.log("moved a mine to " + cell.number);
 			return cell.number;			
 		}
 	}
@@ -551,7 +543,6 @@ Game.prototype.revealTarget = function(cell){
 };
 
 Game.prototype.flag = function(cell){
-	console.log("this runs");
 	var self = this;
 	var ele = self.find(cell);
 	if(ele.reveal || (self.flags <= 0 && !ele.flagged)){
@@ -608,7 +599,6 @@ Game.prototype.checkFlag = function(cell){
 };
 
 Game.prototype.gameover = function(){
-	console.log("Game over!");
 	var self = this;
 	var array = _.flatten(self.board);
 	_.each(array, function(element){
@@ -621,7 +611,6 @@ Game.prototype.gameover = function(){
 
 Game.prototype.checkForWin = function(){
 	if(this.status==="x_X"){
-		console.log("game is already over");
 		return;
 	}
 	var self = this;
@@ -719,9 +708,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 	};
 	$scope.rightClick = function(cell) {
 		if($scope.game.sweeper){
-			console.log('right clicked');
 			$scope.game.flag(cell.number);
-			console.log($scope.game.find(cell.number));
 			$scope.flags = $scope.game.flags;
 		}
 		else {
@@ -748,7 +735,6 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 	}
 
 	$scope.showInstruction = function(){
-		console.log("ran");
 		if($scope.showHowto){
 			$scope.showHowto = false;
 			window.setTimeout(function(){
