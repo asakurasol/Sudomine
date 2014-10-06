@@ -1,6 +1,6 @@
 #Sudomine
 
-Prototyping a HTML game that combines Sudoku and Mine Sweeper
+A simple HTML game that combines Sudoku and Mine Sweeper, created using angular.
 
-You can Play it Here: http://asakurasol.github.io/Sudomine/#/
+You can play it here: http://asakurasol.github.io/Sudomine/#/
 
