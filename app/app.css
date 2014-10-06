@@ -3,3 +3,8 @@ body {
   display: block;
   background-color: #FFFFE6 !important;
 }
+
+.footer {
+	width:550px;
+	margin: auto;
+}
