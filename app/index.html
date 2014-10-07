@@ -16,9 +16,17 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="app/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=251698028206639&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -43,7 +51,11 @@
   <script src="view1/view1.js"></script>
 </body>
 <div class = "footer">
+<div class="fb-like" data-href="http://asakurasol.github.io/Sudomine/#/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false">
+</div>
+<div class = "tweetbox">
   <a href="https://twitter.com/share" class="twitter-share-button" data-text="I just played #Sudomine and it is awesome! #minesweeper + #sudoku" data-via="asakurasol">Tweet</a>
+</div>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </div>
 </html>
