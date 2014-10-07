@@ -627,7 +627,6 @@ Game.prototype.checkForWin = function(){
 	var array = _.flatten(self.board);
 	var revealed = 0;
 
-	console.log("revealed Sudoku is " + self.revealedSudoku);
 	revealed = _.reduce(array, function(result, element){
 		if(element.reveal){
 			return ++result;
@@ -648,7 +647,10 @@ Game.prototype.checkForWin = function(){
 }
 
 Game.prototype.setValue = function(cell,value){
-	if(cell.sudokuNum === value){
+	if(cell.sudokuGuess || (cell.reveal && cell.sensor > 0 && !cell.mine)){
+		return;
+	}
+	else if(cell.sudokuNum === value){
 		cell.sudokuGuess = value;
 		this.revealedSudoku++;
 		if(cell.mine && !cell.flagged){
@@ -673,6 +675,13 @@ Game.prototype.resetControl = function(){
 	_.each(self.controls, function(control){
 		control[1] = '';
 	});
+}
+
+Game.prototype.cheat = function(){
+	for(var i = 0; i <80; i++){
+		var ele = this.find(i);
+		this.setValue(ele, ele.sudokuNum);
+	}
 }
 
 
@@ -777,6 +786,10 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 				window.scrollBy(0,700);
 			}, 50);
 		}
+	}
+
+	$scope.cheat = function(){
+		$scope.game.cheat();
 	}
 
 	$scope.dropFunctions = [];
