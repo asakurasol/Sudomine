@@ -639,7 +639,7 @@ Game.prototype.checkForWin = function(){
 	if(revealed === array.length-self.mines){
 		this.status = "^_^";
 	}
-
+	console.log(self.revealedSudoku + "are revealed!");
 	//check to see if everything is finished
 	if(self.revealedSudoku >= 81){
 		return true;
@@ -655,14 +655,24 @@ Game.prototype.setValue = function(cell,value){
 	}
 	else if(cell.sudokuNum === value){
 		cell.sudokuGuess = value;
-		this.revealedSudoku++;
+
 		if(cell.mine && !cell.flagged){
 			this.flag(cell.number);
+			this.revealedSudoku++;
 		}
 		else if(cell.mine && cell.flagged){
+			this.revealedSudoku++;
+		}
+		else if(cell.flagged && !cell.mine){
+			this.flag(cell.number);
+			this.reveal(cell.number);
 		}
 		else{
+			if(cell.reveal){
+				this.revealedSudoku++;
+			}
 			this.reveal(cell.number)
+
 		}
 	}
 	else{
