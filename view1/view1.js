@@ -249,8 +249,12 @@ function Game(size,mines){
 	this.status = 'o_o';
 	this.sweeper = true;
 	this.first = _.once(self.firstClick);
+	this.firstClicked = false;
 	this.controls = [[1,''],[2,''],[3,''],[4,''],[5,''],[6,''],[7,''],[8,''],[9,'']];
 	this.lives = [1,2,3];
+	this.revealedSudoku = 0;
+
+	//for spacing divs
 	this.pullup = 'pullup';
 	this.pushup = 'pushup';
 } 
@@ -306,8 +310,9 @@ Game.prototype.updateProps = function(array, size){
 		}
 	}
 
-	var assignSudokuClass = function(i){
+	/*var assignSudokuClass = function(i){
 		var result;
+
 		if(i>=27 && i <54){
 			result = "sudokuLight"
 		}
@@ -325,11 +330,11 @@ Game.prototype.updateProps = function(array, size){
 		};
 
 		return result;
-	}
+	}*/
 
 	_.each(array, function(cell){
 		cell.position = assignPosition(cell.number, size);
-		cell.sudokuClass = assignSudokuClass(cell.number);
+		/*cell.sudokuClass = assignSudokuClass(cell.number);*/
 		cell.nextTo = self.updateNextTo(cell.position, cell.number, size);
 		cell.sensor = self.updateSensor(cell.nextTo, array);
 		if(!cell.mine) {
@@ -442,8 +447,14 @@ Game.prototype.reveal = function(cell){
 	var revealed = []
 	var self = this;
 	var recurse = function(cell){
-			revealed.push(cell);
-			var ele = self.find(cell);
+
+		revealed.push(cell);
+		var ele = self.find(cell);
+
+		if (ele.sensor !== 0 && !ele.mine && !ele.flagged && !ele.reveal){
+			self.revealedSudoku++;
+		}
+
 		if(!ele.flagged){
 			ele.reveal = true;
 			ele.cellClass = 'revealed';
@@ -465,6 +476,7 @@ Game.prototype.reveal = function(cell){
 
 Game.prototype.firstClick = function(cell){
 	var self = this;
+	self.firstClicked = true;
 	var forbidden = cell.nextTo;
 	forbidden.push(cell.number);
 
@@ -510,6 +522,7 @@ Game.prototype.firstClick = function(cell){
 		moveMine(cell, forbidden);
 		refresh();
 	}
+	return true;
 }
 
 
@@ -611,11 +624,12 @@ Game.prototype.gameover = function(){
 
 Game.prototype.checkForWin = function(){
 	if(this.status==="x_X"){
-		return;
+		return false;
 	}
 	var self = this;
 	var array = _.flatten(self.board);
 	var revealed = 0;
+
 	revealed = _.reduce(array, function(result, element){
 		if(element.reveal){
 			return ++result;
@@ -625,11 +639,23 @@ Game.prototype.checkForWin = function(){
 	if(revealed === array.length-self.mines){
 		this.status = "^_^";
 	}
+
+	//check to see if everything is finished
+	if(self.revealedSudoku >= 81){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 Game.prototype.setValue = function(cell,value){
-	if(cell.sudokuNum === value){
+	if(cell.sudokuGuess || (cell.reveal && cell.sensor > 0 && !cell.mine)){
+		return;
+	}
+	else if(cell.sudokuNum === value){
 		cell.sudokuGuess = value;
+		this.revealedSudoku++;
 		if(cell.mine && !cell.flagged){
 			this.flag(cell.number);
 		}
@@ -654,8 +680,15 @@ Game.prototype.resetControl = function(){
 	});
 }
 
+Game.prototype.cheat = function(){
+	for(var i = 0; i <80; i++){
+		var ele = this.find(i);
+		this.setValue(ele, ele.sudokuNum);
+	}
+}
 
-angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
+
+angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
@@ -664,15 +697,55 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
   });
 }])
 
-.controller('View1Ctrl', ['$scope', function($scope) {
+.factory('stopwatch', function ($timeout) {
+    var data = { 
+            value: 0
+        },
+        stopwatch = null;
+        
+    var start = function () {;
+        stopwatch = $timeout(function() {
+              data.value++;
+              start();
+        }, 1000);
+    };
+
+    var stop = function () {
+        $timeout.cancel(stopwatch);
+        stopwatch = null;
+    };
+
+    var reset = function () {
+        stop()
+        data.value = 0;
+    };
+
+    return {
+        data: data,
+        start: start,
+        stop: stop,
+        reset: reset
+    };
+})
+
+.controller('View1Ctrl', ['$scope','stopwatch', function($scope, stopwatch) {
 	$scope.game = new Game(9,15);
 	$scope.cursorValue = '';
 	$scope.showHowto = false;
 	$scope.globalListener = {};
+	$scope.dialogShown = false;
+	$scope.sw = stopwatch;
+	$scope.message = "test message";
+	var self = this;
+
 
 	$scope.globalListener.setValue = function(i, ele){
 		$scope.game.setValue($scope.game.find(i),ele);
-		$scope.game.checkForWin();
+		    if($scope.game.checkForWin()){
+		    	$scope.dialogShown = true;
+		    	$scope.sw.stop();
+		    	self.updateText();
+		    };
 	}
 
 	window.globalListener = $scope.globalListener;
@@ -680,9 +753,15 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 	$scope.newGame = function(){
 		$scope.game = new Game(9,15);
 		window.game = $scope.game;	
+		$scope.dialogShown = false;
+		$scope.sw.reset();
 	};
+
 	$scope.reveal = function(cell) {
 		if($scope.game.sweeper){
+		    if(!$scope.game.firstClicked){
+		    	$scope.sw.start();
+		    }
 		    $scope.game.first(cell);
 		    $scope.game.reveal(cell.number);
 		}
@@ -695,12 +774,20 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 			$scope.game.resetControl();
 			$scope.cursorValue = '';
 		}
-		$scope.game.checkForWin();
+		    if($scope.game.checkForWin()){
+		    	$scope.dialogShown = true;
+		    	$scope.sw.stop();
+		    	self.updateText();
+		    };
 	};
 	$scope.doubleClick = function(cell) {
 		if($scope.game.sweeper){
 			$scope.game.checkFlag(cell.number);
-		    $scope.game.checkForWin();
+		    if($scope.game.checkForWin()){
+		    	$scope.dialogShown = true;
+		    	$scope.sw.stop();
+		    	self.updateText();
+		    };
 		}
 		else{
 
@@ -747,6 +834,39 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 				window.scrollBy(0,700);
 			}, 50);
 		}
+	}
+
+	/*$scope.cheat = function(){
+		$scope.game.cheat();
+	}*/
+
+	this.updateText = function(){
+
+        // Remove Whatever is in the tweeetbox div if theres somethign 
+        //there to avoid adding multiple tweetbuttons
+
+        
+        var elem = document.getElementById('twitter-brag');
+        console.log("found element " + elem);
+        if (elem != null) {
+            elem.parentNode.removeChild(elem);
+        }
+
+        // Create a New Tweet Element
+        var link = document.createElement('a');
+        link.setAttribute('href', 'https://twitter.com/share');
+        link.setAttribute('class', 'twitter-share-button');
+        link.setAttribute('id', 'twitterbutton');
+        link.setAttribute("data-text", "I beat #Sudomine and it only took me " + $scope.sw.data.value + " seconds...");
+        link.setAttribute("data-via", "asaurasol");
+        link.setAttribute("data-size", "large");
+
+       // Put it inside the twtbox div
+        tweetdiv  =  document.getElementById('brag-box');
+        tweetdiv.appendChild(link);
+
+        twttr.widgets.load(); //very important
+
 	}
 
 	$scope.dropFunctions = [];

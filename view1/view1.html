@@ -6,11 +6,11 @@
 		<p>
 		<span class="glyphicon glyphicon-flag"></span>
 		 minesweeper + sudoku 
-		<span class="glyphicon glyphicon-star"></span></p>
+		<span class="glyphicon glyphicon-star" ng-click = "cheat()"></span></p>
 	</div>
 
 	<div id = "bar">
-
+		s
 		<div class = 'gameStatus'>
 		<div class="btn btn-danger btn-lg" ng-click = "newGame()">
 			<span class="glyphicon glyphicon-repeat"></span></div>	
@@ -57,7 +57,7 @@
 			ng-dblClick = "doubleClick(cell)"
 			rightclick = "rightClick(cell)"
 			drop = "dropFunctions.{{cell.number}}">
-				<div class = 'sudoku' ng-class = "cell.sudokuClass" ng-show = '!game.sweeper' >
+				<div class = 'sudoku' ng-show = '!game.sweeper' >
 					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess'>
 						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
 						<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
@@ -118,3 +118,10 @@
 			Close
 	</button>
 </div>
+
+<modal-dialog show='dialogShown' dialog-title='You Win! <(^_^<)'>
+  <p>And it only took you {{sw.data.value}} seconds to get here....</p>
+  <div id = "brag-box">
+  <div class="btn btn-danger" ng-click = "newGame()">Play again!</div>
+  <a href="https://twitter.com/share" id = 'twitter-brag' class="twitter-share-button" data-text="I just beat #Sudomine" data-size="large" data-via="asakurasol">Tweet</a></div>
+</modal-dialog>
