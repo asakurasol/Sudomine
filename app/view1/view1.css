@@ -33,7 +33,7 @@
 }
 
 .content{
-  width: 550px;
+  width: 580px;
   margin: 0 auto;
 }
 
@@ -65,6 +65,7 @@
   position: absolute;
   margin-top:90px;
   margin-bottom: 30px;
+  margin-left: 15px;
 }
 
 .gameBGContainer{
@@ -72,7 +73,7 @@
   height: 553px;
   text-align: center;
   margin-top: 87px;
-  margin-left: 0px;
+  margin-left: 15px;
   margin-bottom:15px;
 }
 
