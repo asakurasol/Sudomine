@@ -449,7 +449,7 @@ class added to all .drop elements while dragging
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 40%;
+  width: 500px;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -465,12 +465,16 @@ class added to all .drop elements while dragging
 }
 .ng-modal-dialog-content {
   overflow: hidden;
-  font-size:12px;
+  font-size:18px;
   height: 100%;
   background-color: #FFFFE6;
   padding-top:20px;
   margin-bottom:30px;
   color: #726252;
+}
+
+.ng-modal-dialog-content p {
+  margin-bottom: 35px;
 }
 .ng-modal-close {
   position: absolute;
@@ -490,7 +494,7 @@ class added to all .drop elements while dragging
   font-weight: bolder;
   font-size: 200%;
   display: block;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   color: #726252;
   /*border-bottom: solid 1px #999;*/
 }

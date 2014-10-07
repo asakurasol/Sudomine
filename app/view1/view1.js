@@ -249,6 +249,7 @@ function Game(size,mines){
 	this.status = 'o_o';
 	this.sweeper = true;
 	this.first = _.once(self.firstClick);
+	this.firstClicked = false;
 	this.controls = [[1,''],[2,''],[3,''],[4,''],[5,''],[6,''],[7,''],[8,''],[9,'']];
 	this.lives = [1,2,3];
 	this.revealedSudoku = 0;
@@ -475,6 +476,7 @@ Game.prototype.reveal = function(cell){
 
 Game.prototype.firstClick = function(cell){
 	var self = this;
+	self.firstClicked = true;
 	var forbidden = cell.nextTo;
 	forbidden.push(cell.number);
 
@@ -520,6 +522,7 @@ Game.prototype.firstClick = function(cell){
 		moveMine(cell, forbidden);
 		refresh();
 	}
+	return true;
 }
 
 
@@ -694,17 +697,54 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
   });
 }])
 
-.controller('View1Ctrl', ['$scope', function($scope) {
+.factory('stopwatch', function ($timeout) {
+    var data = { 
+            value: 0
+        },
+        stopwatch = null;
+        
+    var start = function () {;
+        stopwatch = $timeout(function() {
+              data.value++;
+              start();
+        }, 1000);
+    };
+
+    var stop = function () {
+        $timeout.cancel(stopwatch);
+        stopwatch = null;
+    };
+
+    var reset = function () {
+        stop()
+        data.value = 0;
+    };
+
+    return {
+        data: data,
+        start: start,
+        stop: stop,
+        reset: reset
+    };
+})
+
+.controller('View1Ctrl', ['$scope','stopwatch', function($scope, stopwatch) {
 	$scope.game = new Game(9,15);
 	$scope.cursorValue = '';
 	$scope.showHowto = false;
 	$scope.globalListener = {};
 	$scope.dialogShown = false;
+	$scope.sw = stopwatch;
+	$scope.message = "test message";
+	var self = this;
+
 
 	$scope.globalListener.setValue = function(i, ele){
 		$scope.game.setValue($scope.game.find(i),ele);
 		    if($scope.game.checkForWin()){
 		    	$scope.dialogShown = true;
+		    	$scope.sw.stop();
+		    	self.updateText();
 		    };
 	}
 
@@ -714,12 +754,16 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 		$scope.game = new Game(9,15);
 		window.game = $scope.game;	
 		$scope.dialogShown = false;
+		$scope.sw.reset();
 	};
 
 	$scope.reveal = function(cell) {
 		if($scope.game.sweeper){
+		    if(!$scope.game.firstClicked){
+		    	$scope.sw.start();
+		    }
 		    $scope.game.first(cell);
-		    $scope.game.reveal(cell.number, true);
+		    $scope.game.reveal(cell.number);
 		}
 		else{
 			//there is an error here
@@ -732,6 +776,8 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 		}
 		    if($scope.game.checkForWin()){
 		    	$scope.dialogShown = true;
+		    	$scope.sw.stop();
+		    	self.updateText();
 		    };
 	};
 	$scope.doubleClick = function(cell) {
@@ -739,6 +785,8 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 			$scope.game.checkFlag(cell.number);
 		    if($scope.game.checkForWin()){
 		    	$scope.dialogShown = true;
+		    	$scope.sw.stop();
+		    	self.updateText();
 		    };
 		}
 		else{
@@ -790,6 +838,35 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 
 	$scope.cheat = function(){
 		$scope.game.cheat();
+	}
+
+	this.updateText = function(){
+
+        // Remove Whatever is in the tweeetbox div if theres somethign 
+        //there to avoid adding multiple tweetbuttons
+
+        
+        var elem = document.getElementById('twitter-brag');
+        console.log("found element " + elem);
+        if (elem != null) {
+            elem.parentNode.removeChild(elem);
+        }
+
+        // Create a New Tweet Element
+        var link = document.createElement('a');
+        link.setAttribute('href', 'https://twitter.com/share');
+        link.setAttribute('class', 'twitter-share-button');
+        link.setAttribute('id', 'twitterbutton');
+        link.setAttribute("data-text", "I beat #Sudomine and it only took me " + $scope.sw.data.value + " seconds...");
+        link.setAttribute("data-via", "asaurasol");
+        link.setAttribute("data-size", "large");
+
+       // Put it inside the twtbox div
+        tweetdiv  =  document.getElementById('brag-box');
+        tweetdiv.appendChild(link);
+
+        twttr.widgets.load(); //very important
+
 	}
 
 	$scope.dropFunctions = [];
