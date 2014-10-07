@@ -847,7 +847,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 	}
 
 	$scope.cheat = function(){
-		$scope.game.cheat();
+		/*$scope.game.cheat();*/
 	}
 
 	this.updateText = function(){
