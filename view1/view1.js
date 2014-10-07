@@ -639,7 +639,6 @@ Game.prototype.checkForWin = function(){
 	if(revealed === array.length-self.mines){
 		this.status = "^_^";
 	}
-	console.log(self.revealedSudoku + "are revealed!");
 	//check to see if everything is finished
 	if(self.revealedSudoku >= 81){
 		return true;
@@ -691,10 +690,11 @@ Game.prototype.resetControl = function(){
 }
 
 Game.prototype.cheat = function(){
-	for(var i = 0; i <80; i++){
+	/*for(var i = 0; i <80; i++){
 		var ele = this.find(i);
 		this.setValue(ele, ele.sudokuNum);
-	}
+	}*/
+	console.log("Cheating is not good for you!");
 }
 
 
@@ -857,7 +857,6 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 
         
         var elem = document.getElementById('twitter-brag');
-        console.log("found element " + elem);
         if (elem != null) {
             elem.parentNode.removeChild(elem);
         }
