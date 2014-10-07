@@ -4,8 +4,18 @@ body {
   background-color: #FFFFE6 !important;
 }
 
-
 .footer {
 	width:580px;
 	margin: auto;
+	padding-bottom:20px;
+}
+
+.tweetbox {
+	display: inline;
+	margin-left:20px;
+
+}
+
+.tweetbox #twitter-widget-0{
+	margin-bottom: -5px;
 }
