@@ -251,6 +251,9 @@ function Game(size,mines){
 	this.first = _.once(self.firstClick);
 	this.controls = [[1,''],[2,''],[3,''],[4,''],[5,''],[6,''],[7,''],[8,''],[9,'']];
 	this.lives = [1,2,3];
+	this.revealedSudoku = 0;
+
+	//for spacing divs
 	this.pullup = 'pullup';
 	this.pushup = 'pushup';
 } 
@@ -306,8 +309,9 @@ Game.prototype.updateProps = function(array, size){
 		}
 	}
 
-	var assignSudokuClass = function(i){
+	/*var assignSudokuClass = function(i){
 		var result;
+
 		if(i>=27 && i <54){
 			result = "sudokuLight"
 		}
@@ -325,11 +329,11 @@ Game.prototype.updateProps = function(array, size){
 		};
 
 		return result;
-	}
+	}*/
 
 	_.each(array, function(cell){
 		cell.position = assignPosition(cell.number, size);
-		cell.sudokuClass = assignSudokuClass(cell.number);
+		/*cell.sudokuClass = assignSudokuClass(cell.number);*/
 		cell.nextTo = self.updateNextTo(cell.position, cell.number, size);
 		cell.sensor = self.updateSensor(cell.nextTo, array);
 		if(!cell.mine) {
@@ -442,8 +446,14 @@ Game.prototype.reveal = function(cell){
 	var revealed = []
 	var self = this;
 	var recurse = function(cell){
-			revealed.push(cell);
-			var ele = self.find(cell);
+
+		revealed.push(cell);
+		var ele = self.find(cell);
+
+		if (ele.sensor !== 0 && !ele.mine && !ele.flagged && !ele.reveal){
+			self.revealedSudoku++;
+		}
+
 		if(!ele.flagged){
 			ele.reveal = true;
 			ele.cellClass = 'revealed';
@@ -611,11 +621,13 @@ Game.prototype.gameover = function(){
 
 Game.prototype.checkForWin = function(){
 	if(this.status==="x_X"){
-		return;
+		return false;
 	}
 	var self = this;
 	var array = _.flatten(self.board);
 	var revealed = 0;
+
+	console.log("revealed Sudoku is " + self.revealedSudoku);
 	revealed = _.reduce(array, function(result, element){
 		if(element.reveal){
 			return ++result;
@@ -625,11 +637,20 @@ Game.prototype.checkForWin = function(){
 	if(revealed === array.length-self.mines){
 		this.status = "^_^";
 	}
+
+	//check to see if everything is finished
+	if(self.revealedSudoku >= 81){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 Game.prototype.setValue = function(cell,value){
 	if(cell.sudokuNum === value){
 		cell.sudokuGuess = value;
+		this.revealedSudoku++;
 		if(cell.mine && !cell.flagged){
 			this.flag(cell.number);
 		}
@@ -655,7 +676,7 @@ Game.prototype.resetControl = function(){
 }
 
 
-angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
+angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
@@ -669,10 +690,13 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 	$scope.cursorValue = '';
 	$scope.showHowto = false;
 	$scope.globalListener = {};
+	$scope.dialogShown = false;
 
 	$scope.globalListener.setValue = function(i, ele){
 		$scope.game.setValue($scope.game.find(i),ele);
-		$scope.game.checkForWin();
+		    if($scope.game.checkForWin()){
+		    	$scope.dialogShown = true;
+		    };
 	}
 
 	window.globalListener = $scope.globalListener;
@@ -680,11 +704,13 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 	$scope.newGame = function(){
 		$scope.game = new Game(9,15);
 		window.game = $scope.game;	
+		$scope.dialogShown = false;
 	};
+
 	$scope.reveal = function(cell) {
 		if($scope.game.sweeper){
 		    $scope.game.first(cell);
-		    $scope.game.reveal(cell.number);
+		    $scope.game.reveal(cell.number, true);
 		}
 		else{
 			//there is an error here
@@ -695,12 +721,16 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngAnimate'])
 			$scope.game.resetControl();
 			$scope.cursorValue = '';
 		}
-		$scope.game.checkForWin();
+		    if($scope.game.checkForWin()){
+		    	$scope.dialogShown = true;
+		    };
 	};
 	$scope.doubleClick = function(cell) {
 		if($scope.game.sweeper){
 			$scope.game.checkFlag(cell.number);
-		    $scope.game.checkForWin();
+		    if($scope.game.checkForWin()){
+		    	$scope.dialogShown = true;
+		    };
 		}
 		else{
 

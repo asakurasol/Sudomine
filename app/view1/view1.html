@@ -57,7 +57,7 @@
 			ng-dblClick = "doubleClick(cell)"
 			rightclick = "rightClick(cell)"
 			drop = "dropFunctions.{{cell.number}}">
-				<div class = 'sudoku' ng-class = "cell.sudokuClass" ng-show = '!game.sweeper' >
+				<div class = 'sudoku' ng-show = '!game.sweeper' >
 					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess'>
 						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
 						<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
@@ -118,3 +118,8 @@
 			Close
 	</button>
 </div>
+
+<modal-dialog show='dialogShown' dialog-title='You Win! <(^_^<)'>
+  <div class="btn btn-danger" ng-click = "newGame()">Play again!</div>
+   <a href="https://twitter.com/share" class="twitter-share-button" data-text="I just beat #Sudomine! #minesweeper + #sudoku combined in one game" data-size="large" data-via="asakurasol">Tweet</a>
+</modal-dialog>
