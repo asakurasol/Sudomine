@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<div class = "game" ng-class = 'game.pullup'>
+	<div class = "game" ng-class = 'game.pullup' ng-swipe-right = "switch()" ng-swipe-left = "switch()">
 		<div class = "column" ng-repeat = "column in game.board">
 			<div class = 'rows'
 			ng-class = "[cell.cellClass, cell.textClass]"
