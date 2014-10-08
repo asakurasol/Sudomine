@@ -781,8 +781,8 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 				{
 					$scope.game.setValue(cell, $scope.cursorValue);
 				}
-			$scope.game.resetControl();
-			$scope.cursorValue = '';
+			/*$scope.game.resetControl();
+			$scope.cursorValue = '';*/
 		}
 		    if($scope.game.checkForWin()){
 		    	$scope.dialogShown = true;
@@ -790,6 +790,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 		    	self.updateText();
 		    };
 	};
+
 	$scope.doubleClick = function(cell) {
 		if($scope.game.sweeper){
 			$scope.game.checkFlag(cell.number);
@@ -847,7 +848,7 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
 	}
 
 	$scope.cheat = function(){
-		$scope.game.cheat();
+		/*$scope.game.cheat();*/
 	}
 
 	this.updateText = function(){
