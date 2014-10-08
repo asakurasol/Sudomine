@@ -161,8 +161,9 @@
 }
 .sudokuCtrl {
   float:right;
-  margin:auto;
-  width: 95%;
+  margin-right:10px;
+
+  width: 540px;
 }
 
 .flags.controls {
@@ -182,7 +183,7 @@
 }
 
 .controls.numbers{
-  width: 10%;
+  width: 54px;
   float:left;
   color: yellow ;
   background: #bbada0;
