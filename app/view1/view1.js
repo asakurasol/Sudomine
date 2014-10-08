@@ -698,7 +698,7 @@ Game.prototype.cheat = function(){
 }
 
 
-angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal'])
+angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal', 'ngTouch'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
