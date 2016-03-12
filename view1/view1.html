@@ -17,6 +17,7 @@
 			<div class = 'btn btn-danger btn-lg' ng-click = "switch()">
 				<h4 ng-show = 'game.sweeper'><span class="glyphicon glyphicon-flag"></span> <( {{game.status}} <) </h4>
 				<h4 ng-show = '!game.sweeper'>(> {{game.status}} )> <span class="glyphicon glyphicon-star"></span></h4>
+				<h5>Switch Mode</h5>
 			</div>
 		<div class="btn btn-danger btn-lg" ng-click = "showInstruction()">
 			<span class="glyphicon glyphicon-question-sign"></span></div>	
@@ -27,7 +28,6 @@
 	<div class = 'switchCtrl'>
 		<div class = "flags controls">
 			<h4>{{game.flags}} x <span class="glyphicon glyphicon-flag"></span></h4>
-			<h5> Switch </h5>
 		</div>
 
 		<div class = 'controls switch'>
