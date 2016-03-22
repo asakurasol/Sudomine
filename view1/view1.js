@@ -607,7 +607,7 @@ Game.prototype.checkForWin = function(){
     if(revealed === array.length-self.mines){
         this.status = "^_^";
     }
-    console.log(self.revealedSudoku + "are revealed!");
+    console.log(self.revealedSudoku + " is revealed!");
     //check to see if everything is finished
     if(self.revealedSudoku >= 81){
         return true;
@@ -831,11 +831,9 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal', 'ngTouch'])
         twttr.widgets.load(); //very important
     };
 
-    $scope.dropFunctions = [];
-
-    for(var i = 0; i < 81; i++){
-        $scope.dropFunctions[i] = new Function('ele', "var i = " + i + "; globalListener.setValue(i, ele);"); // jshint ignore:line
-    }
+    $scope.dropFunction = function(cellNumber){
+        $scope.globalListener.setValue(cellNumber, angular.element(this));
+    };
 
 }])
 /*
