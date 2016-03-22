@@ -1,22 +1,21 @@
 body, #mc_embed_signup {
-    text-align: center;
-    display: block;
-    background-color: #FFFFE6;
-    clear: left;
-    font: 14px Helvetica, Arial, sans-serif; 
+  text-align: center;
+  display: block;
+  background-color: #FFFFE6 !important;
 }
 
 .footer {
-    width:580px;
-    margin: auto;
-    padding-bottom:20px;
+	width:580px;
+	margin: auto;
+	padding-bottom:20px;
 }
 
 .tweetbox {
-    display: inline;
-    margin-left:20px;
+	display: inline;
+	margin-left:20px;
+
 }
 
 .tweetbox #twitter-widget-0{
-    margin-bottom: -5px;
+	margin-bottom: -5px;
 }
