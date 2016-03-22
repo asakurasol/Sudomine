@@ -1,128 +1,119 @@
 <link rel="stylesheet" href="view1/view1.css"/>
-<div class = 'content'>
-	<div id = 'desc'>
-		<h1>sudo</h1>
-		<span><h1>mine</h1></span>
-		<p>
-		<span class="glyphicon glyphicon-flag"></span>
-		 minesweeper + sudoku 
-		<span class="glyphicon glyphicon-star" ng-click = "cheat()"></span></p>
-	</div>
+<div class="content">
+    <div id="desc">
+        <h1>sudo</h1>
+        <span><h1>mine</h1></span>
+        <p>
+        <span class="glyphicon glyphicon-flag"></span>
+         minesweeper + sudoku
+        <span class="glyphicon glyphicon-star" ng-click="cheat()"></span></p>
+    </div>
 
-	<div id = "bar">
-		s
-		<div class = 'gameStatus'>
-		<div class="btn btn-danger btn-lg" ng-click = "newGame()">
-			<span class="glyphicon glyphicon-repeat"></span></div>	
-			<div class = 'btn btn-danger btn-lg' ng-click = "switch()">
-				<h4 ng-show = 'game.sweeper'><span class="glyphicon glyphicon-flag"></span> <( {{game.status}} <) </h4>
-				<h4 ng-show = '!game.sweeper'>(> {{game.status}} )> <span class="glyphicon glyphicon-star"></span></h4>
-				<h5>Switch Mode</h5>
-			</div>
-		<div class="btn btn-danger btn-lg" ng-click = "showInstruction()">
-			<span class="glyphicon glyphicon-question-sign"></span></div>	
-		</div>
+    <div id="bar">
+        s
+        <div class="gameStatus">
+        <div class="btn btn-danger btn-lg" ng-click="newGame()">
+            <span class="glyphicon glyphicon-repeat"></span></div>
+            <div class="btn btn-danger btn-lg" ng-click="switch()">
+                <h4 ng-show="game.sweeper"><span class="glyphicon glyphicon-flag"></span> <( {{game.status}} <) </h4>
+                <h4 ng-show="!game.sweeper">(> {{game.status}} )> <span class="glyphicon glyphicon-star"></span></h4>
+                <h5>Switch Mode</h5>
+            </div>
+        <div class="btn btn-danger btn-lg" ng-click="showInstruction()">
+            <span class="glyphicon glyphicon-question-sign"></span></div>
+        </div>
+    </div>
 
-	</div>
-		
-	<div class = 'switchCtrl'>
-		<div class = "flags controls">
-			<h4>{{game.flags}} x <span class="glyphicon glyphicon-flag"></span></h4>
-		</div>
+    <div class="switchCtrl">
+        <div class="flags controls">
+            <h4>{{game.flags}} x <span class="glyphicon glyphicon-flag"></span></h4>
+        </div>
 
-		<div class = 'controls switch'>
-			<span ng-repeat = "life in game.lives" class="glyphicon glyphicon-star"></span>
-		</div>
-	</div>
+        <div class="controls switch">
+            <span ng-repeat="life in game.lives" class="glyphicon glyphicon-star"></span>
+        </div>
+    </div>
 
-	<div class = "sudokuCtrl">
-		<div ng-show = '!game.sweeper'>
-			<div class = 'controls numbers' 
-			ng-repeat = "control in game.controls"
-			drag
-			ng-model = "control[0]"
-			ng-click = "getValue(control[0])"
-			ng-class = "control[1]"
-			>
-				<div>{{control[0]}}</div>
-			</div>
-		</div>
-	</div>
+    <div class="sudokuCtrl">
+        <div ng-show='!game.sweeper'>
+            <div class="controls numbers"
+            ng-repeat="control in game.controls"
+            drag
+            ng-model="control[0]"
+            ng-click="getValue(control[0])"
+            ng-class="control[1]"
+            >
+                <div>{{control[0]}}</div>
+            </div>
+        </div>
+    </div>
 
-	<div class = "game" ng-class = 'game.pullup' ng-swipe-right = "switch()" ng-swipe-left = "switch()">
-		<div class = "column" ng-repeat = "column in game.board">
-			<div class = 'rows'
-			ng-class = "[cell.cellClass, cell.textClass]"
-			ng-repeat = "cell in column" 
-			ng-click = "reveal(cell)" 
-			ng-dblClick = "doubleClick(cell)"
-			rightclick = "rightClick(cell)"
-			drop = "dropFunctions.{{cell.number}}">
-				<div class = 'sudoku' ng-show = '!game.sweeper' >
-					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess'>
-						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
-						<div ng-show = '!cell.sudokuGuess'>{{cell.sudokuNum}}</div>
-					</div>
-				</div>
-				<div class = 'sweeper' ng-show = 'game.sweeper'>
+    <div class="game" ng-class="game.pullup" ng-swipe-right="switch()" ng-swipe-left="switch()">
+        <div class="column" ng-repeat="column in game.board">
+            <div class="rows"
+            ng-class="[cell.cellClass, cell.textClass]"
+            ng-repeat="cell in column"
+            ng-click="reveal(cell)"
+            ng-dblClick="doubleClick(cell)"
+            rightclick="rightClick(cell)"
+            drop="dropFunctions.{{cell.number}}">
+                <div class="sudoku" ng-show="!game.sweeper" >
+                    <div ng-show="(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess">
+                        <div ng-show="cell.sudokuGuess">{{cell.sudokuGuess}}</div>
+                        <div ng-show="!cell.sudokuGuess">{{cell.sudokuNum}}</div>
+                    </div>
+                </div>
+                <div class="sweeper" ng-show="game.sweeper">
+                    <div ng-show="cell.reveal || cell.flagged">
+                        {{cell.appearance}}
+                        <div ng-show="cell.mine && !cell.flagged">
+                            <span class="glyphicon glyphicon-certificate"></span>
+                        </div>
+                    </div>
+                    <div ng-show="cell.flagged" class="flag"><span class="glyphicon glyphicon-flag"></span></div>
+                </div>
+            </div>
 
-					<div ng-show = "cell.reveal || cell.flagged">
-						{{cell.appearance}}
-						<div ng-show = 'cell.mine && !cell.flagged'>
-							<span class="glyphicon glyphicon-certificate"></span>
-						</div>
-					</div>
-					<div ng-show = "cell.flagged" class = 'flag'><span class="glyphicon glyphicon-flag"></span></div>
-				</div>
-			</div>
+        </div>
+    </div>
 
-		</div>
-	</div>
-
-<div class = "gameBGContainer">
-	<div class = "gameBG" ng-show = "!game.sweeper">
-		<div class = 'botright'>
-		</div>
-		<div class = 'botright tweak'>
-		</div>
-		<div class = 'bot'>
-		</div>
-		<div class = 'botright'>
-		</div>
-		<div class = 'botright tweak'>
-		</div>
-		<div class = 'bot'>
-		</div>
-		<div class = 'right'>
-		</div>
-		<div class = 'right tweak'>
-		</div>
-	</div>
+<div class="gameBGContainer">
+    <div class="gameBG" ng-show="!game.sweeper">
+        <div class="botright"></div>
+        <div class="botright tweak"></div>
+        <div class="bot"></div>
+        <div class="botright"></div>
+        <div class="botright tweak"></div>
+        <div class="bot"></div>
+        <div class="right"></div>
+        <div class="right tweak">
+        </div>
+    </div>
 </div>
 
-<div id = 'howto' class = 'well' ng-show = 'showHowto' ng-class = 'game.pushup'>
-	<div>
-		<p><b>Sudomine</b> is a logic puzzle game based on minesweeper and sudoku. The goal of sudomine is to reveal all mine-free squares on the board (same as a standard minesweeper game), but players have the extra option of solving the game by playing sudoku on the same board.</p>
-		<p>When the players input a correct solution to the sudoku puzzle, the corresponding spot on the minesweeper side is revealed. The sudoku numbers are revealed on the same spots as the minesweeper's sensors (colored numbers).</p>
-		<ul class = 'list-group'>
-			<li class = "list-group-item"><span class = "restart-button-sml"> <(o_o)> </span><p>- Switches between minesweeper and sudoku mode</p></li>
-			<li class = "list-group-item"><span class = "controls-sml-flag"># x <span class = "glyphicon glyphicon-flag"></span></span><p>- Number of flags remaining, right click on a square to flag</p></li>
-			<li class = "list-group-item"><span class = "controls-sml-star"><span class = "glyphicon glyphicon-star"></span><span class = "glyphicon glyphicon-star"></span></span><p>- Number of lives remaining for sudoku, game over if reaches 0</p></li>
-			<li class = "list-group-item"><span class = "controls-sml-star">1 - 9</span><p>- Drag a number to empty squares to solve sudoku puzzle</p></li>
-			<li class = "list-group-item"><span class = "square"></span><p>- Click on an empty square to reveal it</p></li>
-			<li class = "list-group-item"><span class = "square"><span class = "glyphicon glyphicon-certificate"></span></span><p>- Mines! Don't click on these</p></li>
-			<li class = "list-group-item"><span class = "square red">3</span><p>- Number in a square shows number of mines around it</p></li>
-		</ul>
-
-	</div>
-	<button class="btn btn-warning" ng-click = "showInstruction()">
-			Close
-	</button>
+<div id="howto" class="well" ng-show="showHowto" ng-class="game.pushup">
+    <div>
+        <p><b>Sudomine</b> is a logic puzzle game based on minesweeper and sudoku. The goal of sudomine is to reveal all mine-free squares on the board (same as a standard minesweeper game), but players have the extra option of solving the game by playing sudoku on the same board.</p>
+        <p>When the players input a correct solution to the sudoku puzzle, the corresponding spot on the minesweeper side is revealed. The sudoku numbers are revealed on the same spots as the minesweeper's sensors (colored numbers).</p>
+        <ul class="list-group">
+            <li class="list-group-item"><span class="restart-button-sml"> <(o_o)> </span><p>- Switches between minesweeper and sudoku mode</p></li>
+            <li class="list-group-item"><span class="controls-sml-flag"># x <span class="glyphicon glyphicon-flag"></span></span><p>- Number of flags remaining, right click on a square to flag</p></li>
+            <li class="list-group-item"><span class="controls-sml-star"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></span><p>- Number of lives remaining for sudoku, game over if reaches 0</p></li>
+            <li class="list-group-item"><span class="controls-sml-star">1 - 9</span><p>- Drag a number to empty squares to solve sudoku puzzle</p></li>
+            <li class="list-group-item"><span class="square"></span><p>- Click on an empty square to reveal it</p></li>
+            <li class="list-group-item"><span class="square"><span class="glyphicon glyphicon-certificate"></span></span><p>- Mines! Don't click on these</p></li>
+            <li class="list-group-item"><span class="square red">3</span><p>- Number in a square shows number of mines around it</p></li>
+        </ul>
+    </div>
+    <button class="btn btn-warning" ng-click="showInstruction()">
+            Close
+    </button>
 </div>
 
-<modal-dialog show='dialogShown' dialog-title='You Win! <(^_^<)'>
-  <p>And it only took you {{sw.data.value}} seconds to get here....</p>
-  <div id = "brag-box">
-  <div class="btn btn-danger" ng-click = "newGame()">Play again!</div>
-  <a href="https://twitter.com/share" id = 'twitter-brag' class="twitter-share-button" data-text="I just beat #Sudomine" data-size="large" data-via="asakurasol">Tweet</a></div>
+<modal-dialog show="dialogShown" dialog-title="You Win! <(^_^<)">
+    <p>And it only took you {{sw.data.value}} seconds to get here....</p>
+    <div id="brag-box">
+        <div class="btn btn-danger" ng-click="newGame()">Play again!</div>
+        <a href="https://twitter.com/share" id='twitter-brag' class="twitter-share-button" data-text="I just beat #Sudomine" data-size="large" data-via="asakurasol">Tweet</a>
+    </div>
 </modal-dialog>
