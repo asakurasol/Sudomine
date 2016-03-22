@@ -351,7 +351,7 @@ Game.prototype.updateProps = function(array, size){
 
 Game.prototype.updateNextTo = function(type, index, size){
     // @NOTE: Javascript is usually written in camelCase so I'd suggest you change these
-    var top = index -1;
+    var top = index - 1;
     var bot = index + 1;
     var left = index - size;
     var right = index + size;
@@ -360,7 +360,7 @@ Game.prototype.updateNextTo = function(type, index, size){
     var bot_left = index - size + 1; // jshint ignore:line
     var bot_right = index + size + 1; // jshint ignore:line
 
-    var returns = {
+    var return_array = {
         "top-left": [right, bot_right, bot],
         "bot-right": [top, left, top_left],
         "bot-left": [top, right, top_right],
@@ -370,8 +370,9 @@ Game.prototype.updateNextTo = function(type, index, size){
         "left": [top, bot, right, bot_right, top_right],
         "right": [top, bot, left, bot_left, top_left]
     };
-    if(returns.indexOf(type) >= 0){
-        return returns[type];
+
+    if(Object.keys(return_array).indexOf(type) >= 0){
+        return return_array[type];
     } else {
         return [top, bot, left, right, top_right, top_left, bot_left, bot_right] // jshint ignore:line
     }
@@ -387,7 +388,7 @@ Game.prototype.updateSensor = function(nextTo, array){
 };
 
 Game.prototype.updateSensorClass = function(n){
-    var numbers = {
+    var numbers_array = {
         '1': 'one',
         '2': 'two',
         '3': 'three',
@@ -395,12 +396,11 @@ Game.prototype.updateSensorClass = function(n){
         '5': 'five',
         '6': 'six',
         '7': '7',
-        '8': '8',
-
+        '8': '8'
     };
 
-    if(numbers.indexOf(n) >= 0){
-        return numbers[n];
+    if(Object.keys(numbers_array).indexOf(n) >= 0){
+        return numbers_array[n];
     } else {
         return '';
     }
