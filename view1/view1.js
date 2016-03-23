@@ -880,11 +880,12 @@ angular.module('myApp.view1', ['ngRoute', 'dragAndDrop', 'ngModal', 'ngTouch'])
 
 	}
 
-	$scope.dropFunctions = [];
-
-	for(var i = 0; i < 81; i++){
-		$scope.dropFunctions[i] = new Function('ele', "var i = " + i + "; globalListener.setValue(i, ele);");
-	}
+	$scope.dropFunctions = function(number){
+		return function(element){
+			var i = number;
+			globalListener.setValue(i, element)
+		}
+	};
 	
 }])
 /*

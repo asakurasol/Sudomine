@@ -57,7 +57,7 @@
 			ng-click = "reveal(cell)" 
 			ng-dblClick = "doubleClick(cell)"
 			rightclick = "rightClick(cell)"
-			drop = "dropFunctions.{{cell.number}}">
+			drop = "dropFunctions(cell.number)">
 				<div class = 'sudoku' ng-show = '!game.sweeper' >
 					<div ng-show = '(cell.reveal && cell.sensor !== 0) || cell.sudokuGuess'>
 						<div ng-show = 'cell.sudokuGuess'>{{cell.sudokuGuess}}</div>
